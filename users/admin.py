@@ -19,6 +19,7 @@ class CustomUserAdmin(UserAdmin):
   add_form = UserCreationForm
 
   list_display = ('email', 'first_name', 'last_name', 'username', 'phone_number', 'is_staff', 'is_superuser')
+  inlines = (UserProfileInline,)
   list_filter = ['is_superuser']
 
   add_fieldsets = UserAdmin.add_fieldsets + (

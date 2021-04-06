@@ -55,13 +55,16 @@ class UserProfile(models.Model):
   user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, primary_key=True, related_name="user_profile")
   bio = models.CharField(max_length=255, blank=True, null=True)
   hobbies = models.CharField(max_length=150, blank=True, null=True)
-  profile_pic = models.ImageField()
+  profile_pic = models.ImageField(null=True)
   is_verified = models.BooleanField(default=False)
   create_at = models.DateTimeField(default=timezone.now)
   updated_at = models.DateTimeField(default=timezone.now)
 
   def __str__(self):
-    return self.user.email
+    return f'{ self.user.email } + " " + Profile'
+
+  def save(self, *args, **kwargs):
+    super().save(*args, **kwargs)
 
 
 

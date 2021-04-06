@@ -1,4 +1,4 @@
-# Pull base image
+# Pull base image - Almost never changes
 
 FROM python:3.8
 
