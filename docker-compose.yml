@@ -17,5 +17,8 @@ services:
         - POSTGRES_USER=postgres
         - POSTGRES_PASSWORD=postgres
       volumes: 
-      - .:/code
+      #- .:/code
+      - onlineshop-volume:/var/lib/postgresql/data
+volumes:
+  onlineshop-volume:
   
