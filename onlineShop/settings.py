@@ -43,7 +43,7 @@ INSTALLED_APPS = [
    'users.apps.UsersConfig',
    'django_countries',
    'rest_framework',
-   'tasks.apps.TasksConfig'
+   'tasks.apps.TasksConfig',
     
 ]
 

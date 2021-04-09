@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 
-class Tasks(models.Model):
+class Task(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_changed = models.DateTimeField(auto_now=True)
     description = models.CharField(max_length=155, blank=False, default='Task Description')
