@@ -11,11 +11,27 @@ from tasks.serializers import TaskSerializer
 # Create your views here.
 
 class JSONResponse(HttpResponse):
-    def __init__(self, content: object, data,  *args, **kwargs ):
+    def __init__(self, data, **kwargs ):
         content = JSONRenderer().render(data)
         kwargs['content_type'] = 'application/json'
-        super(JSONResponse, self).__init__(content=content, *args, **kwargs)
+        super(JSONResponse, self).__init__(content, **kwargs)
 
+
+    #  Add task list function
+
+    @csrf_exempt
+    def task_list(request):
+        if request.method == 'GET':
+            tasks = Task.objects.all()
+            task_serializer = TaskSerializer(tasks, many=True)
+            return JSONResponse(task_serializer.data)
+        elif request.method == 'POST':
+            task_data = JSONParser().parse(request)
+            task_serializer = TaskSerializer(data=task_data)
+            if task_serializer.is_valid():
+                task_serializer.save()
+                return JSONResponse(task_serializer.data, status=status.HTTP_201_CREATED)
+            return JSONResponse(task_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     @csrf_exempt
     def task_detail(request, pk):
         try:
