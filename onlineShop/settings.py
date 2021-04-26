@@ -40,15 +40,17 @@ INSTALLED_APPS = [
 
     #User installed apps
 
-   'users.apps.UsersConfig',
-   'django_countries',
-   'rest_framework',
-   'tasks.apps.TasksConfig',
+    'users.apps.UsersConfig',
+    'django_countries',
+    'rest_framework',
+    'tasks.apps.TasksConfig',
+    'activitys.apps.ActivitysConfig',
+  
     
 ]
 
 AUTH_USER_MODEL = 'users.User'
-
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
