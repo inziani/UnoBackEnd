@@ -24,13 +24,14 @@ class Activity(models.Model):
     description = models.CharField(max_length=155, blank=False, default='Activity Description')
     details = models.CharField(max_length=300, blank=False, default='Activity Details')
     activity_category = models.ForeignKey(ActivityCategory, related_name='activitys', on_delete=CASCADE)
+    owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='activitys', default=1)
     
 
     class Meta:
         ordering = ('date_created',)
 
     def __str__(self):
-        return self.description
+        return f'{self.description}, {self.owner}'
 
     def create(self, ):
         return self.save()
