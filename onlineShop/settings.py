@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'django_countries',
     'rest_framework',
-    'tasks.apps.TasksConfig',
+    'finances.apps.FinancesConfig',
     'activitys.apps.ActivitysConfig',
   
     
@@ -88,9 +88,9 @@ WSGI_APPLICATION = 'onlineShop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'NAME': 'onlineshop',
+        'USER': 'onlineshop',
+        'PASSWORD': 'onlineshop',
         'HOST':'db',
         'PORT': 5432
     }

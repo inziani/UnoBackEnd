@@ -11,11 +11,11 @@ services:
     depends_on:
       - db
   db:
-      image: postgres
+      image: postgres 
       environment:
-        - POSTGRES_DB=postgres
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=postgres
+        - POSTGRES_DB=onlineshop 
+        - POSTGRES_USER=onlineshop
+        - POSTGRES_PASSWORD=onlineshop
       volumes: 
       #- .:/code
       - onlineshop-volume:/var/lib/postgresql/data

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from tasks.models import Task
+from finances.models import Task
 
 
 class TaskSerializer(serializers.Serializer):

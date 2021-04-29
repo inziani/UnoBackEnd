@@ -5,8 +5,8 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from rest_framework import status
 from rest_framework.request import Request
-from tasks.models import Task
-from tasks.serializers import TaskSerializer
+from finances.models import Task
+from finances.serializers import TaskSerializer
 
 # Create your views here.
 
