@@ -9,6 +9,7 @@ class ActivityCategory(models.Model):
     description = models.CharField(max_length=155)
     date_created = models.DateTimeField(auto_now_add=True)
     date_changed = models.DateTimeField(auto_now=True)
+    # change_by = 
     category = models.CharField(choices=CATEGORY, default='',max_length=155)
 
     class Meta:
@@ -25,7 +26,7 @@ class Activity(models.Model):
     details = models.CharField(max_length=300, blank=False, default='Activity Details')
     activity_category = models.ForeignKey(ActivityCategory, related_name='activitys', on_delete=CASCADE)
     owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='activitys', default=1)
-    
+    # Check whethere the default owner will be overwritten by the perform_create function in the serializer.
 
     class Meta:
         ordering = ('date_created',)

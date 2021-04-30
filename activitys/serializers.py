@@ -1,10 +1,23 @@
 from rest_framework.serializers import ModelSerializer
 from activitys.models import ActivityCategory, Activity
 
-class ActivityCategorySerializer(ModelSerializer):
+
+class ActivityCategoryCreateUpdateSerializer(ModelSerializer):
+    class Meta:
+        model = ActivityCategory
+        fields = ['id', 'description', 'category', 'date_created']
+        
+
+class ActivityCategoryListSerializer(ModelSerializer):
     class Meta:
         model = ActivityCategory
         fields = '__all__'
+
+class ActivityCategoryRetrieveDetailsSerializer(ModelSerializer):
+    class Meta:
+        model = ActivityCategory
+        fields = '__all__'
+
 
 
 

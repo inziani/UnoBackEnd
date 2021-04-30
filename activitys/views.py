@@ -1,10 +1,48 @@
-from rest_framework.generics import ListAPIView
+from rest_framework import serializers
+from rest_framework.generics import (DestroyAPIView, UpdateAPIView, RetrieveAPIView, ListAPIView, CreateAPIView, RetrieveUpdateAPIView, RetrieveUpdateDestroyAPIView,)
+from rest_framework.permissions import(AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly)
+
+
+
 from activitys.models import Activity, ActivityCategory
-from activitys.serializers import ActivityCategorySerializer
+from activitys.serializers import (ActivityCategoryListSerializer, ActivityCategoryRetrieveDetailsSerializer, ActivityCategoryCreateUpdateSerializer)
+
+
+class ActivityCategoryCreateAPIView(CreateAPIView):
+    queryset = ActivityCategory.objects.all
+    serializer_class = ActivityCategoryCreateUpdateSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        # serializer.save(user=self.request.user)
+        serializer.save()
+    #     # return super().perform_create(serializer)
+
+class ActivityCategoryDeleteAPIView(DestroyAPIView):
+    queryset = ActivityCategory.objects.all
+    serializer_class = ActivityCategoryRetrieveDetailsSerializer
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
+class ActivityCategoryUpdateAPIView(RetrieveUpdateAPIView):
+    queryset = ActivityCategory.objects.all
+    serializer_class = ActivityCategoryCreateUpdateSerializer
+    lookup_field = 'id'
+    lookup_url_kwarg  = 'id'
+    permission_classes = [IsAuthenticated, ]
+
+    def perform_update(self, serializer):
+        serializer.save(user=self.request.user)
+        # return super().perform_update(serializer)
+
+class ActivityCategoryRetrieveDetailsAPIView(RetrieveAPIView):
+    queryset = ActivityCategory.objects.all()
+    serializer_class = ActivityCategoryRetrieveDetailsSerializer
+
 
 class ActivityCategoryListAPIView(ListAPIView):
     queryset = ActivityCategory.objects.all()
-    serializer_class = ActivityCategorySerializer
+    serializer_class = ActivityCategoryListSerializer
+
 
 
 # from django.shortcuts import render
