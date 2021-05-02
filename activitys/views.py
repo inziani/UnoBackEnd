@@ -1,47 +1,105 @@
-from rest_framework import serializers
-from rest_framework.generics import (DestroyAPIView, UpdateAPIView, RetrieveAPIView, ListAPIView, CreateAPIView, RetrieveUpdateAPIView, RetrieveUpdateDestroyAPIView,)
+from django.http import HttpResponse
+from django.http import request
+from django.shortcuts import render
+
+from rest_framework import status
 from rest_framework.permissions import(AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly)
+from rest_framework.decorators import api_view
+from rest_framework.views import csrf_exempt
+from rest_framework.response import Response
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
 
-
-
+from .models import Activity, ActivityCategory
+from .serializers import ActivityCategorySerializer
 from activitys.models import Activity, ActivityCategory
-from activitys.serializers import (ActivityCategoryListSerializer, ActivityCategoryRetrieveDetailsSerializer, ActivityCategoryCreateUpdateSerializer)
+from activitys.serializers import (ActivityCategorySerializer, )
+
+class JSONResponse(HttpResponse):
+    def __init__(self, data, **kwargs):
+        content = JSONRenderer().render(data)
+        kwargs['content_type'] = 'multipart/form-data'
+        super(JSONResponse, self).__init__(content, **kwargs)
 
 
-class ActivityCategoryCreateAPIView(CreateAPIView):
-    queryset = ActivityCategory.objects.all
-    serializer_class = ActivityCategoryCreateUpdateSerializer
-    permission_classes = [IsAuthenticated]
+    @api_view(['GET', 'POST'])
+    def get_activity_category_list(request):
+        # Get a list of allActivity catagories
+        if request.method == 'GET':
+            activitys_category = ActivityCategory.objects.all()
+            activitys_serializer = ActivityCategorySerializer(activitys_category, many=True)
+            return Response(activitys_serializer.data)
+        # Insert a new Activity Catagory 
+        elif request.method == 'POST':
+            activitys_serializer = ActivityCategorySerializer(data=request.data)
+            if activitys_serializer.is_valid():
+                activitys_serializer.save()
+                return Response(activitys_serializer.data, status=status.HTTP_201_CREATED)
+            return Response(activitys_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def perform_create(self, serializer):
-        # serializer.save(user=self.request.user)
-        serializer.save()
-    #     # return super().perform_create(serializer)
-
-class ActivityCategoryDeleteAPIView(DestroyAPIView):
-    queryset = ActivityCategory.objects.all
-    serializer_class = ActivityCategoryRetrieveDetailsSerializer
-    permission_classes = [IsAuthenticated, IsAdminUser]
-
-class ActivityCategoryUpdateAPIView(RetrieveUpdateAPIView):
-    queryset = ActivityCategory.objects.all
-    serializer_class = ActivityCategoryCreateUpdateSerializer
-    lookup_field = 'id'
-    lookup_url_kwarg  = 'id'
-    permission_classes = [IsAuthenticated, ]
-
-    def perform_update(self, serializer):
-        serializer.save(user=self.request.user)
-        # return super().perform_update(serializer)
-
-class ActivityCategoryRetrieveDetailsAPIView(RetrieveAPIView):
-    queryset = ActivityCategory.objects.all()
-    serializer_class = ActivityCategoryRetrieveDetailsSerializer
+    @api_view(['GET', 'PUT', 'DELETE'])
+    def get_edit_delete_activitys(request, pk):
+        try:
+            activitys_category = ActivityCategory.objects.get(pk=pk)
+        except ActivityCategory.DoesNotExist:
+            return Response(ststus=status.HTTP_404_NOT_FOUND)
+        if request.method == 'GET':
+            activitys_serializer = ActivityCategorySerializer(activitys_category)
+            return Response(activitys_serializer.data)
+        elif request.method == 'PUT':
+            activitys_serializer = ActivityCategorySerializer(activitys_category, data=request.data)
+            if activitys_serializer.is_valid():
+                activitys_serializer.save()
+                return Response(activitys_serializer.data)
+            return Response(activitys_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        elif request.method == 'DELETE':
+            activitys_category.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+                
 
 
-class ActivityCategoryListAPIView(ListAPIView):
-    queryset = ActivityCategory.objects.all()
-    serializer_class = ActivityCategoryListSerializer
+
+
+
+
+
+# class ActivityCategoryCreateAPIView(CreateAPIView):
+#     queryset = ActivityCategory.objects.all
+#     serializer_class = ActivityCategoryCreateUpdateSerializer
+#     permission_classes = [IsAuthenticated]
+
+#     def perform_create(self, serializer):
+#         # serializer.save(user=self.request.user)
+#         serializer.save()
+#     #     # return super().perform_create(serializer)
+
+# class ActivityCategoryDeleteAPIView(RetrieveDestroyAPIView):
+#     queryset = ActivityCategory.objects.all
+#     serializer_class = ActivityCategoryRetrieveDetailsSerializer
+#     permission_classes = [IsAuthenticated, IsAdminUser]
+
+# class ActivityCategoryUpdateAPIView(RetrieveUpdateAPIView):
+#     queryset = ActivityCategory.objects.all
+#     serializer_class = ActivityCategoryCreateUpdateSerializer
+#     permission_classes = [IsAuthenticated, ]
+
+#     def perform_update(self, serializer):
+#         serializer.save(user=self.request.user)
+#         # return super().perform_update(serializer)
+
+#     def update(self, request, pk,  *args, **kwargs):
+#         activity = get_object_or_404(self.get_queryset(), pk=pk)
+#         activity.save()
+#         return super().update(request, *args, **kwargs)
+
+# class ActivityCategoryRetrieveDetailsAPIView(RetrieveAPIView):
+#     queryset = ActivityCategory.objects.all()
+#     serializer_class = ActivityCategoryRetrieveDetailsSerializer
+
+
+# class ActivityCategoryListAPIView(ListAPIView):
+#     queryset = ActivityCategory.objects.all()
+#     serializer_class = ActivityCategoryListSerializer
 
 
 

@@ -1,19 +1,19 @@
 
 Official = 'OF'
 Personal = 'PS'
+Created = 'PS'
+Progress = 'WIP'
+Completed = 'CC'
+Closed = 'CS'
 
 CATEGORY = [
   (Personal, 'Personal'),
   (Official, 'Official')
   ]
-# Accounting = 'AC'
-# Project_Management = 'PM'
-# Human_Resources = 'HR'
-# Personal = 'PS'
 
-# CATEGORY = [
-#   (Accounting, 'Accounting'),
-#   (Project_Management, 'Project Management'),
-#   (Human_Resources, 'Human Resources'),
-#   (Personal, 'Personal')
-# ]
+STATUS = [
+  (Created, 'Created'),
+  (Progress, 'Work in progress'),
+  (Completed, 'Completed'),
+  (Closed, 'Closed')
+]

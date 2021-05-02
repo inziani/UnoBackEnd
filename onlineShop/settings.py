@@ -43,11 +43,14 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'django_countries',
     'rest_framework',
-    'finances.apps.FinancesConfig',
     'activitys.apps.ActivitysConfig',
   
     
 ]
+
+REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'rest_framework.views.exception_handler'
+}
 
 AUTH_USER_MODEL = 'users.User'
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
