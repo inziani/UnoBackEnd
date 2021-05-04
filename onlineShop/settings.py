@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django_countries',
     'rest_framework',
     'activitys.apps.ActivitysConfig',
+    
   
     
 ]

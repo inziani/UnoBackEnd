@@ -9,6 +9,7 @@ pillow = "*"
 django-countries = "*"
 psycopg2-binary = "==2.8.3"
 djangorestframework = "*"
+pygments = "==2.5.2"
 
 [dev-packages]
 black = "*"
