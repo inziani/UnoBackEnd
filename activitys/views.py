@@ -26,7 +26,12 @@ class ActivityCategoryListCreateAPIView(ListCreateAPIView):
     # List and create activitys view
     queryset = ActivityCategory.objects.all()
     serializer_class = ActivityCategorySerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+        # serializer.save()
+        # return super().perform_create(serializer)
 
 class ActivityCategoryEditAPIView(RetrieveUpdateAPIView):
     #View for updating Activity catagory
@@ -37,12 +42,8 @@ class ActivityCategoryEditAPIView(RetrieveUpdateAPIView):
 class ActivityCategoryEditDeleteAPIView(RetrieveUpdateDestroyAPIView):
     queryset = ActivityCategory.objects.all()
     serializer_class = ActivityCategorySerializer
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
-    def perform_create(self, serializer):
-        # serializer.save(user=self.request.user)
-        serializer.save()
-        return super().perform_create(serializer)
 
 # class ActivityCategoryDeleteAPIView(RetrieveDestroyAPIView):
 #     queryset = ActivityCategory.objects.all

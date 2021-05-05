@@ -23,10 +23,11 @@ class ActivityCategory(models.Model):
     date_changed = models.DateTimeField(auto_now=True)
     # changed_by = 
     category = models.CharField(choices=CATEGORY, default='',max_length=155)
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='activityscatagorys', on_delete=CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='activityscategorys', on_delete=CASCADE, default=1)
     language = models.CharField(choices=LANGUAGE_CHOICES, default='python', max_length=100)
-    styles = models.CharField(choices=STYLE_CHOICES, default='friendly', max_length=100)
+    style = models.CharField(choices=STYLE_CHOICES, default='friendly', max_length=100)
     highlighted = models.TextField(default='django hyperlink API for Angular front end onlineshop')
+    linenos = models.BooleanField(default=False)
 
     class Meta:
         ordering = ('date_created', )
