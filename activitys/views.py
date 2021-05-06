@@ -1,29 +1,29 @@
-# from django.http import HttpResponse
-# from django.http import request
-# from django.shortcuts import render
-
-# from rest_framework import status
+from rest_framework import generics, renderers
 from rest_framework.permissions import(AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly)
-# from rest_framework.decorators import api_view
-# from rest_framework.views import csrf_exempt
-# from rest_framework.response import Response
-# from rest_framework.renderers import JSONRenderer
-# from rest_framework.parsers import JSONParser
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView, RetrieveUpdateAPIView
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
+
 
 from .models import Activity, ActivityCategory
 from .serializers import ActivityCategorySerializer
-# from activitys.models import Activity, ActivityCategory
-# from activitys.serializers import (ActivityCategorySerializer, )
+from .permissions import IsOwnerOrReadOnly
 
-# List only view 
+#1. Root API Endpoint
+@api_view(['GET'])
+def activityscategorys_root(request, format=None ):
+    return Response({
+        'users': reverse('user-list', request=request, format=format),
+        'activitys-categorys': reverse('activityscategory-list', request=request, format=format)
+    })
 
 class ActivityCategoryListAPIView(ListAPIView):
-    # List activitys categories only view 
+    #2. List activitys categories only view 
     queryset = ActivityCategory.objects.all()
     serializer_class = ActivityCategorySerializer
 class ActivityCategoryListCreateAPIView(ListCreateAPIView):
-    # List and create activitys view
+    #3. List and create activitys view
     queryset = ActivityCategory.objects.all()
     serializer_class = ActivityCategorySerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -32,17 +32,10 @@ class ActivityCategoryListCreateAPIView(ListCreateAPIView):
         serializer.save(owner=self.request.user)
         # serializer.save()
         # return super().perform_create(serializer)
-
-class ActivityCategoryEditAPIView(RetrieveUpdateAPIView):
-    #View for updating Activity catagory
-    queryset = ActivityCategory.objects.all
-    serializer_class = ActivityCategorySerializer
-    permission_classes = [IsAuthenticated, ]
-
 class ActivityCategoryEditDeleteAPIView(RetrieveUpdateDestroyAPIView):
     queryset = ActivityCategory.objects.all()
     serializer_class = ActivityCategorySerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
 
 # class ActivityCategoryDeleteAPIView(RetrieveDestroyAPIView):

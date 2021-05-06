@@ -15,6 +15,8 @@ Including another URLconf
 """
 
 
+from activitys.views import activityscategorys_root
+from users.views import users_root
 from django import urls
 from django.contrib import admin
 from django.urls import path, include 
@@ -27,5 +29,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('', include('activitys.urls')),
-    path('', include('users.urls'))
+    path('', include('users.urls')),
+    path('', activityscategorys_root),
+
 ]
