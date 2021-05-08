@@ -5,37 +5,52 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
+from rest_framework import viewsets
+
 
 from .models import Activity, ActivityCategory
 from .serializers import ActivityCategorySerializer
 from .permissions import IsOwnerOrReadOnly
+from activitys import permissions
 
 #1. Root API Endpoint
-@api_view(['GET'])
-def activityscategorys_root(request, format=None ):
-    return Response({
-        'users': reverse('user-list', request=request, format=format),
-        'activitys-categorys': reverse('activityscategory-list', request=request, format=format)
-    })
+# @api_view(['GET'])
+# def activityscategorys_root(request, format=None ):
+#     return Response({
+#         'users': reverse('user-list', request=request, format=format),
+#         'activitys-categorys': reverse('activityscategory-list', request=request, format=format)
+#     })
 
-class ActivityCategoryListAPIView(ListAPIView):
-    #2. List activitys categories only view 
-    queryset = ActivityCategory.objects.all()
-    serializer_class = ActivityCategorySerializer
-class ActivityCategoryListCreateAPIView(ListCreateAPIView):
-    #3. List and create activitys view
-    queryset = ActivityCategory.objects.all()
-    serializer_class = ActivityCategorySerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
-        # serializer.save()
-        # return super().perform_create(serializer)
-class ActivityCategoryEditDeleteAPIView(RetrieveUpdateDestroyAPIView):
+    # Refactor the generic class based views to use viewsets and routers
+class ActivitysCategorysViewSet(viewsets.ModelViewSet):
+    """ This view set automatically provides for list, create, retrieve update and destory actions"""
     queryset = ActivityCategory.objects.all()
     serializer_class = ActivityCategorySerializer
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+
+    #  API Views using the generic class based views 
+
+# class ActivityCategoryListAPIView(ListAPIView):
+#     #2. List activitys categories only view 
+#     queryset = ActivityCategory.objects.all()
+#     serializer_class = ActivityCategorySerializer
+# class ActivityCategoryListCreateAPIView(ListCreateAPIView):
+#     #3. List and create activitys view
+#     queryset = ActivityCategory.objects.all()
+#     serializer_class = ActivityCategorySerializer
+#     permission_classes = [IsAuthenticatedOrReadOnly]
+
+    # def perform_create(self, serializer):
+    #     serializer.save(owner=self.request.user)
+    
+# class ActivityCategoryEditDeleteAPIView(RetrieveUpdateDestroyAPIView):
+#     queryset = ActivityCategory.objects.all()
+#     serializer_class = ActivityCategorySerializer
+#     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
 
 # class ActivityCategoryDeleteAPIView(RetrieveDestroyAPIView):

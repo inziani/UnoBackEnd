@@ -2,7 +2,8 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer, HyperlinkedModelSerializer
 from .models import User, UserProfile
-from activitys.models import ActivityCategory, LANGUAGE_CHOICES, STYLE_CHOICES
+from activitys.models import ActivityCategory, Activity
+# , LANGUAGE_CHOICES, STYLE_CHOICES
 
 class UserSerializer(HyperlinkedModelSerializer):
     # activityscategorys = serializers.PrimaryKeyRelatedField(many=True,= queryset=ActivityCategory.objects.all()) 

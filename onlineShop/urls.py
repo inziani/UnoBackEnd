@@ -15,13 +15,13 @@ Including another URLconf
 """
 
 
-from activitys.views import activityscategorys_root
-from users.views import users_root
+# from activitys.views import activityscategorys_root
+# from users.views import users_root
 from django import urls
 from django.contrib import admin
 from django.urls import path, include 
 from django.conf.urls import url
-import rest_framework
+
 
 
 urlpatterns = [
@@ -30,6 +30,6 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('', include('activitys.urls')),
     path('', include('users.urls')),
-    path('', activityscategorys_root),
+    # path('', activityscategorys_root),
 
 ]
