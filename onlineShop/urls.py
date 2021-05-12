@@ -17,19 +17,34 @@ Including another URLconf
 
 # from activitys.views import activityscategorys_root
 # from users.views import users_root
-from django import urls
 from django.contrib import admin
 from django.urls import path, include 
-from django.conf.urls import url
+from rest_framework import routers
+
+
+
+class OnlineShopDefaultRouter(routers.DefaultRouter):
+    """Extends 'DefaultRouter' class to add a method to extend url routes from other routers"""
+    def extend(self, router):
+        """Extend the routes with url routes of the passed in router
+        Args: 
+            router: SimpleRouter instance containing route definitions
+        """
+        self.registry.extend(router.registry)
+
+router = OnlineShopDefaultRouter()
+from users.urls import router as users_router
+router.extend(users_router)
+from activitys.urls import router as activitys_router
+router.extend(activitys_router)
+
 
 
 
 urlpatterns = [
     
     path('admin/', admin.site.urls),
+    path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls')),
-    path('', include('activitys.urls')),
-    path('', include('users.urls')),
-    # path('', activityscategorys_root),
 
 ]
