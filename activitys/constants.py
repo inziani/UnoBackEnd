@@ -1,10 +1,10 @@
 
-Official = 'OF'
-Personal = 'PS'
-Created = 'PS'
-Progress = 'WIP'
-Completed = 'CC'
-Closed = 'CS'
+Official = 'Official'
+Personal = 'Personal'
+Created = 'Created'
+Progress = 'Work in progress'
+Completed = 'Completed'
+Closed = 'Closed'
 
 CATEGORY = [
   (Personal, 'Personal'),

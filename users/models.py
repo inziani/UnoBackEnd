@@ -1,7 +1,7 @@
 # Create your models here.
 
 #import _typeshed
-import rest_framework_jwt
+# import rest_framework_jwt 
 from django.conf import settings
 from datetime import datetime, timedelta
 from django.db import models
@@ -64,11 +64,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     """
     return self.generate_jwt_token()
 
-  def generate_jwt_token(self):
     """
+  def generate_jwt_token(self):
+   
     Generate a JSON Web Token that stores the user's ID, and has an expiry date of 60 days into the future
 
-    """
+    
     dt = datetime.now() + timedelta(days=60)
     token = rest_framework_jwt.jwt.encode({
       'id': self.pk,
@@ -77,6 +78,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     settings.SECRET_KEY, algorithm='HS256')
     return token.decode('utf-8')
 
+    """
 
   
 

@@ -9,7 +9,7 @@ from rest_framework import viewsets
 
 
 from .models import Activity, ActivityCategory
-from .serializers import ActivityCategorySerializer
+from .serializers import ActivityCategorySerializer, ActivitySerializer
 from .permissions import IsOwnerOrReadOnly
 from activitys import permissions
 
@@ -28,6 +28,19 @@ class ActivitysCategorysViewSet(viewsets.ModelViewSet):
     serializer_class = ActivityCategorySerializer
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+class ActivitysViewSet(viewsets.ModelViewSet):
+    """
+    This view set automaticall provides for list, create, retrieve, update and destroy actions
+    """
+    queryset = Activity.objects.all()
+    serializer_class = ActivitySerializer
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+
+
+    
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
