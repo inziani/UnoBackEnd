@@ -1,7 +1,7 @@
 # Create your models here.
 
 #import _typeshed
-# import rest_framework_jwt 
+# import rest_framework_simplejwt as jwt
 from django.conf import settings
 from datetime import datetime, timedelta
 from django.db import models
@@ -15,7 +15,6 @@ from django_countries.fields import CountryField
 
 from .constants import GENDER
 
-#from __future__import import unicode_literals
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -56,30 +55,27 @@ class User(AbstractBaseUser, PermissionsMixin):
     "Sends and email to this user"
     send_mail( subject, message, from_email, [self.email], **kwargs)
   
-  @property
-  def token(self):
-    """
-    Allows us to get a user's token by calling 'user.token' instead of 'user.generate_jwt_token()
-    The @property makes it a class property
-    """
-    return self.generate_jwt_token()
-
-    """
-  def generate_jwt_token(self):
-   
-    Generate a JSON Web Token that stores the user's ID, and has an expiry date of 60 days into the future
+  # @property
+  # def token(self):
+  #   """
+  #   Allows us to get a user's token by calling 'user.token' instead of 'user.generate_jwt_token()
+  #   The @property makes it a class property
+  #   """
+  #   return self.generate_jwt_token()
 
     
-    dt = datetime.now() + timedelta(days=60)
-    token = rest_framework_jwt.jwt.encode({
-      'id': self.pk,
-      'exp': int(dt.strftime('%s'))
-    }, 
-    settings.SECRET_KEY, algorithm='HS256')
-    return token.decode('utf-8')
+  # def generate_jwt_token(self):
 
-    """
-
+  #   """ 
+  #   Generate a JSON Web Token that stores the user's ID, and has an expiry date of 60 days into the future
+    
+  #   """ 
+  #   dt = datetime.now() + timedelta(days=60)
+  #   token = jwt.encode({
+  #     'id': self.pk,
+  #     'exp': int(dt.strftime('%s'))
+  #   }, settings.SECRET_KEY, algorithm='HS256')
+  #   return token.decode('utf-8')
   
 
 class UserProfile(models.Model):
