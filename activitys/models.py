@@ -2,7 +2,6 @@ from django.db import models
 from django.db.models.deletion import CASCADE, PROTECT
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from pygments import formatter, styles
 from .constants import CATEGORY, STATUS
 
 
@@ -22,7 +21,7 @@ class ActivityCategory(models.Model):
         ordering = ('date_created', )
     
     def __str__(self):
-        return self.description
+        return self.title
 
 
 class Activity(models.Model):
@@ -33,8 +32,8 @@ class Activity(models.Model):
 
     date_created = models.DateTimeField(auto_now_add=True)
     date_changed = models.DateTimeField(auto_now=True)
-    description = models.CharField(max_length=155, blank=False, default='Activity Description')
-    details = models.CharField(max_length=300, blank=False, default='Activity Details')
+    title = models.CharField(max_length=155, blank=False, default='Activity Description')
+    description = models.CharField(max_length=300, blank=False, default='Activity Details')
     activity_category = models.ForeignKey(ActivityCategory, related_name='activitys', on_delete=PROTECT)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='activitys', default=1)
     slug = models.SlugField(max_length=250, unique_for_date='date_created', default='slug')
@@ -48,14 +47,14 @@ class Activity(models.Model):
         ordering = ('date_created',)
 
     def __str__(self):
-        return f'{self.description}, {self.owner}'
+        return f'{self.title}, {self.owner}'
 
     def create(self, ):
         return self.save()
 
-    def change(self, description, details, activity_category ):
+    def change(self, title, details, activity_category ):
+        self.title = title
         self.description = description
-        self.details = details
         self.activity_category = activity_category
         return self.save()
 

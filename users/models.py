@@ -11,7 +11,7 @@ from django.contrib.auth import get_user_model
 from django.db.models.base import Model
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from django_countries.fields import CountryField
+# from django_countries.fields import CountryField
 
 from .constants import GENDER
 
@@ -27,7 +27,8 @@ class User(AbstractBaseUser, PermissionsMixin):
   date_of_birth = models.DateField(blank=True, null=True)
   gender = models.CharField(choices=GENDER, default='',max_length=6)
   city = models.CharField(verbose_name= _("City"), blank=True, null=True, max_length=255)
-  country = CountryField(multiple=True,  blank_label='(select country)', default='')
+  # country = CountryField(multiple=True,  blank_label='(select country)', default='')
+  country = models.CharField(verbose_name= _("Country"), blank=True, null=True, max_length=255)
   is_active = models.BooleanField(default=True)
   # The is_active flag offers users a chance to deactivate their account as opposed to deletion which completely removes a users account from the application.
   is_superuser = models.BooleanField(default=False)

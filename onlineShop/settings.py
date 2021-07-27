@@ -42,44 +42,46 @@ INSTALLED_APPS = [
     #User installed apps
 
     'users.apps.UsersConfig',
-    'django_countries',
     'rest_framework',
     'activitys.apps.ActivitysConfig',
+    'corsheaders',
+    'rest_framework_simplejwt',
     
   
     
 ]
 
-# REST_FRAMEWORK = {
-#     'EXCEPTION_HANDLER': 'rest_framework.views.exception_handler',
-#     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-#     'PAGE_SIZE': 10,
-#     'DEFAULT_AUTHENTICATION_CLASSES': [
-#         'rest_framework_simplejwt.authentication.JWTAuthentication',
-#     ],
-#     'DEFAULT_PERMISSION_CLASSES': [
-#         'rest_framework.permissions.IsAuthenticated'
-#     ],
-#                 }
+REST_FRAMEWORK = {
+   'DEFAULT_PERMISSION_CLASSES': (
+            'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+            # 'rest_framework.permissions.AllowAny',
+   ),
+   'DEFAULT_AUTHENTICATION_CLASSES': (
+       'rest_framework_simplejwt.authentication.JWTAuthentication',
+    #    'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    #    'rest_framework.authentication.SessionAuthentication',
+    #    'rest_framework.authentication.BasicAuthentication'
+   ),
+}
 
-# SIMPLE_JWT = {
-#     'ALGORITHM': 'HS256',
-#     'SIGNING_KEY': SECRET_KEY,
-#     'VERIFYING_KEY': None,
-#     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=800),
-#     'REFRESH_TOKEN_LIFETIME': timedelta(days=30)
-#     }
+JWT_AUTH = {
+    'JWT_ALLOW_REFRESH': True,
+    # 'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3600),
+}
 
 AUTH_USER_MODEL = 'users.User'
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    
 ]
 
 ROOT_URLCONF = 'onlineShop.urls'
@@ -155,4 +157,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CORS_ALLOWED_ORIGINS  = (
+    'http://localhost:4200',
+    'http://localhost:8080',
+)
+
+
 
