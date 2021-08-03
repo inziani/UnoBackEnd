@@ -21,4 +21,3 @@ services:
       - onlineshop-volume:/var/lib/postgresql/data
 volumes:
   onlineshop-volume:
-  
