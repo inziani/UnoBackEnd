@@ -32,8 +32,8 @@ class Activity(models.Model):
 
     date_created = models.DateTimeField(auto_now_add=True)
     date_changed = models.DateTimeField(auto_now=True)
-    title = models.CharField(max_length=155, blank=False, default='Activity Description')
-    description = models.CharField(max_length=300, blank=False, default='Activity Details')
+    title = models.CharField(max_length=32, blank=False, default='Activity Description')
+    description = models.CharField(max_length=132, blank=False, default='Activity Details')
     activity_category = models.ForeignKey(ActivityCategory, related_name='activitys', on_delete=PROTECT)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='activitys', default=1)
     slug = models.SlugField(max_length=250, unique_for_date='date_created', default='slug')
