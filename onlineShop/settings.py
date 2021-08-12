@@ -26,7 +26,7 @@ SECRET_KEY = 'r5j#-g!oxa_*=n7(c#$^+@!4()fiubena1ly@*+=g*h)p&e650'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition

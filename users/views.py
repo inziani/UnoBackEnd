@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework.generics import ListAPIView, RetrieveAPIView
+from rest_framework.permissions import(AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly)
 from rest_framework.serializers import Serializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -12,34 +13,15 @@ from .serializers import UserSerializer
 
 # Create your views here.
 
-#1. Root API Endpoint
-# @api_view(['GET'])
-# def users_root(request, format=None ):
-#     return Response({
-#         'users': reverse('user-list', request=request, format=format),
-#         # 'activitys-categorys': reverse('activityscategorys-list', request=request, format=format)
-#     })
-
-# Refactor the Views to use viewsets and routers
-class UserViewSet(viewsets.ReadOnlyModelViewSet):
-    """This Viewset automatically provides list and retrieve actions"""
+class UserViewSet(viewsets.ModelViewSet):
+    """This Viewset automatically provides list and retrieve actions - ReadOnlyModelViewSet"""
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
 
 
 
 
-
-
-# Generic Classbased Views
-# class UserList(ListAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
-    
-
-# class UserDetail(RetrieveAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
 
 
     
