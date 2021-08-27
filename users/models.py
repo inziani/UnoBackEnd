@@ -1,7 +1,7 @@
 # Create your models here.
 
 #import _typeshed
-# import rest_framework_simplejwt as jwt
+import rest_framework_simplejwt as jwt
 from django.conf import settings
 from datetime import datetime, timedelta
 from django.db import models
@@ -55,6 +55,26 @@ class User(AbstractBaseUser, PermissionsMixin):
   def email_user(self,subject, message, from_email = None, **kwargs):
     "Sends and email to this user"
     send_mail( subject, message, from_email, [self.email], **kwargs)
+
+
+  @property
+  def tokenJwT(self):
+    " Generate token using user.token instead of user.generate_jwt_token"
+    return self.generate_jwt_token()
+
+  def generate_jwt_token(self):
+    """
+    Generates a JSON web token that stores he user's ID and has an expiry date set to 60 days into the future
+    """
+
+    dt = datetime.now() + timedelta(days=60)
+
+    token = jwt.encode({
+      'id': self.pk,
+      'exp': int(dt.strftime('%s'))
+    }, settings.SECRET_KEY, algorithm="HS256")
+
+    return token.decode('utf-8')
 
 class UserProfile(models.Model):
   user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, primary_key=True, related_name="user_profile")

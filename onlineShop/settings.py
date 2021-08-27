@@ -46,25 +46,30 @@ INSTALLED_APPS = [
     'activitys.apps.ActivitysConfig',
     'corsheaders',
     'rest_framework_simplejwt',
+    # 'rest_auth'
     
 ]
 
 REST_FRAMEWORK = {
    'DEFAULT_PERMISSION_CLASSES': (
-            'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        'rest_framework.permissions.IsAuthenticated',
+            # 'rest_framework.permissions.IsAuthenticatedOrReadOnly',
             # 'rest_framework.permissions.AllowAny',
    ),
    'DEFAULT_AUTHENTICATION_CLASSES': (
-       'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     #    'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-    #    'rest_framework.authentication.BasicAuthentication'
+        'rest_framework.authentication.BasicAuthentication'
    ),
+
+   'NON_FIELD_ERRORS_KEY': 'global',
 }
 
 JWT_AUTH = {
     'JWT_ALLOW_REFRESH': True,
     # 'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3600),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=2),
 }
 
 AUTH_USER_MODEL = 'users.User'

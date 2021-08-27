@@ -10,6 +10,7 @@ djangorestframework = "*"
 psycopg2-binary = "==2.8.3"
 pillow = "*"
 djangorestframework-simplejwt = "*"
+django-rest-auth = "*"
 
 [dev-packages]
 
