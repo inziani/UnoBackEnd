@@ -19,5 +19,6 @@ services:
       volumes: 
       #- .:/code
       - onlineshop-volume:/var/lib/postgresql/data
+      # - ./onlineshop-volume:/var/lib/postgresql/data
 volumes:
   onlineshop-volume:
