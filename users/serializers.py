@@ -1,8 +1,28 @@
 
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer, HyperlinkedModelSerializer
+
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+
 from .models import User, UserProfile
 from activitys.models import ActivityCategory, Activity
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    """Customizes JWT default Serializer to add more information about user"""
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        token['username'] = user.username
+        token['firstName'] = user.first_name
+        token['lastName'] = user.last_name
+        token['lastName'] = user.last_name
+        token['email'] = user.email
+        token['is_superuser'] = user.is_superuser
+        token['is_staff'] = user.is_staff
+        return token
+
 
 class UserSerializer(HyperlinkedModelSerializer):
 

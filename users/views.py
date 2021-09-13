@@ -1,4 +1,5 @@
 from django.shortcuts import render
+# from rest_framework import serializers
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.permissions import(AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly)
 from rest_framework.serializers import Serializer
@@ -6,12 +7,20 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework import viewsets, status
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .models import User
 from activitys.models import ActivityCategory
-from .serializers import UserSerializer, RegistrationSerializer
+from .serializers import UserSerializer, RegistrationSerializer, CustomTokenObtainPairSerializer
+# from .serializers import  RegistrationSerializer, CustomTokenObtainPairSerializer
 
 # Create your views here.
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    # Replace the serializer with your custom
+    serializer_class = CustomTokenObtainPairSerializer
+    # queryset = User.objects.all()
+    # permission_classes = [IsAuthenticated]
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     """This Viewset automatically provides list and retrieve actions - ReadOnlyModelViewSet"""
