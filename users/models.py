@@ -36,7 +36,7 @@ class User(AbstractBaseUser, PermissionsMixin):
   # The is_staff flag is expected by django to determine who can and cannot log on to the admin site. The flag will be active for staff only
   date_joined = models.DateTimeField(default=timezone.now)
 
-  objects = UserManager()
+  objects = UserManager() 
 
   USERNAME_FIELD = 'email'
   REQUIRED_FIELDS = ['first_name', 'last_name', 'username','phone_number' ]
