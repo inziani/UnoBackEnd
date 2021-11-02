@@ -17,8 +17,11 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['username'] = user.username
         token['firstName'] = user.first_name
         token['lastName'] = user.last_name
-        token['lastName'] = user.last_name
+        token['phone_number'] = user.phone_number
+        token['date_of_birth'] = user.date_of_birth
         token['email'] = user.email
+        token['gender'] = user.gender
+        token['city'] = user.city
         token['is_superuser'] = user.is_superuser
         token['is_staff'] = user.is_staff
         return token
@@ -44,9 +47,8 @@ class RegistrationSerializer(HyperlinkedModelSerializer):
     class Meta:
         model = User
         # List all the fields that could possible be included in a request or response including fields specified explicitly above
-        fields = ['email', 'username', 'password', 'token']
+        fields = ['first_name','last_name', 'date_of_birth','phone_number','username','email','gender', 'city', 'password','token']
 
     def create(self, validated_data):
         # Use the create_user method to create new user
         return User.objects.create_user(**validated_data)
-    
