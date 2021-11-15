@@ -47,10 +47,15 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework_simplejwt',
     # 'rest_auth'
-    
+
 ]
 
 REST_FRAMEWORK = {
+
+    # 'DEFAULT_PARSER_CLASSES': [
+    #     'rest_framework.parsers.JSONParser',
+    # ],
+
    'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
         # 'rest_framework.permissions.IsAuthenticatedOrReadOnly',
@@ -113,8 +118,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
-    
+
+
 ]
 
 ROOT_URLCONF = 'onlineShop.urls'
@@ -195,6 +200,3 @@ CORS_ALLOWED_ORIGINS  = (
     'http://localhost:4200',
     'http://localhost:8080',
 )
-
-
-

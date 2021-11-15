@@ -1,10 +1,7 @@
-Female = 'XX'
-Male = 'XY'
+Female = 'Female'
+Male = 'Male'
 
 GENDER = [
   (Female, 'Female'),
   (Male, 'Male'),
 ]
-  
-
-  

@@ -1,24 +1,24 @@
-version: '3.8'
+version: "3.8"
 
 services:
   web:
     build: .
     command: python /code/manage.py runserver 0.0.0.0:8000
-    volumes: 
+    volumes:
       - .:/code
-    ports: 
-    - 8000:8000
+    ports:
+      - 8000:8000
     depends_on:
       - db
   db:
-      image: postgres 
-      environment:
-        - POSTGRES_DB=onlineshop 
-        - POSTGRES_USER=onlineshop
-        - POSTGRES_PASSWORD=onlineshop
-      volumes: 
+    image: postgres
+    environment:
+      - POSTGRES_DB=onlineshop
+      - POSTGRES_USER=onlineshop
+      - POSTGRES_PASSWORD=onlineshop
+    volumes:
       #- .:/code
       - onlineshop-volume:/var/lib/postgresql/data
-      # - ./onlineshop-volume:/var/lib/postgresql/data
+    # - ./onlineshop-volume:/var/lib/postgresql/data
 volumes:
   onlineshop-volume:
