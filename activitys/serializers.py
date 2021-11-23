@@ -18,4 +18,6 @@ class ActivitySerializer(HyperlinkedModelSerializer):
     class Meta:
         model = Activity
         # fields = '__all__'
-        fields =  ('url', 'owner', 'id', 'title', 'description', 'slug', 'status','date_created', 'date_changed', 'activity_category')
+        fields =  ('url', 'owner', 'id', 'title', 'description', 'status','date_created', 'date_changed', 'activity_category')
+        
+        # ('url', 'owner', 'id', 'title', 'description', 'slug', 'status','date_created', 'date_changed', 'activity_category')
