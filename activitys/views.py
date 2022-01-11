@@ -8,7 +8,7 @@ from rest_framework import viewsets
 
 
 from .models import Activity, ActivityCategory
-from .serializers import ActivityCategorySerializer, ActivitySerializer
+from .serializers import ActivityCategorySerializer, ActivitySerializer, ActivityUpdateSerializer
 from .permissions import IsOwnerOrReadOnly
 from activitys import permissions
 
@@ -29,6 +29,7 @@ class ActivitysViewSet(viewsets.ModelViewSet):
     """
     queryset = Activity.objects.all()
     serializer_class = ActivitySerializer
+    # serializer_class = ActivityUpdateSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
     

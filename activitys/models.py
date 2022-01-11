@@ -12,7 +12,6 @@ class ActivityCategory(models.Model):
     description = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)
     date_changed = models.DateTimeField(auto_now=True)
-    # changed_by = 
     category = models.CharField(choices=CATEGORY, default='',max_length=155)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='activityscategorys', on_delete=CASCADE, default=1)
 
@@ -36,7 +35,6 @@ class Activity(models.Model):
     description = models.CharField(max_length=132, blank=False, default='Activity Details')
     activity_category = models.ForeignKey(ActivityCategory, related_name='activitys', on_delete=PROTECT)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='activitys', default=1)
-    # slug = models.SlugField(max_length=250, unique_for_date='date_created', default='slug')
     status = models.CharField(choices=STATUS,  max_length=30, default='Created')
     objects = models.Manager()
     activitysobjects = ActivitysObjects()

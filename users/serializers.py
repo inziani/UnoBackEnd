@@ -47,7 +47,7 @@ class RegistrationSerializer(HyperlinkedModelSerializer):
     class Meta:
         model = User
         # List all the fields that could possible be included in a request or response including fields specified explicitly above
-        fields = ['first_name','last_name', 'date_of_birth','phone_number','username','email','gender', 'city', 'password','token']
+        fields = ['id','first_name','last_name', 'date_of_birth','phone_number','username','email','gender', 'city', 'password','token']
 
     def create(self, validated_data):
         # Use the create_user method to create new user
