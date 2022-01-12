@@ -9,9 +9,9 @@ from rest_framework.reverse import reverse
 from rest_framework import viewsets, status
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from .models import User
+from .models import User, UserProfile
 from activitys.models import ActivityCategory
-from .serializers import UserSerializer, RegistrationSerializer, CustomTokenObtainPairSerializer
+from .serializers import UserSerializer, UserProfileSerializer, RegistrationSerializer, CustomTokenObtainPairSerializer
 # from .serializers import  RegistrationSerializer, CustomTokenObtainPairSerializer
 
 # Create your views here.
@@ -26,6 +26,12 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     """This Viewset automatically provides list and retrieve actions - ReadOnlyModelViewSet"""
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+
+class UserProfileViewSet(viewsets.ReadOnlyModelViewSet):
+    """This Viewset automatically provides list and retrieve actions - ReadOnlyModelViewSet"""
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer
     permission_classes = [IsAuthenticated]
 
 class RegistrationViewSet(viewsets.ModelViewSet):

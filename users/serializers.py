@@ -33,6 +33,14 @@ class UserSerializer(HyperlinkedModelSerializer):
         model = User
         fields = ('url', 'id', 'username', 'first_name', 'middle_name', 'last_name', 'email', 'password',)
 
+class UserProfileSerializer(HyperlinkedModelSerializer):
+    user = serializers.HyperlinkedRelatedField(view_name = 'userprofile-detail', queryset=User.objects.all())
+
+    class Meta:
+        model = UserProfile
+        fields = ('url', 'user', 'bio', 'hobbies', 'profile_pic', 'create_at', 'updated_at')
+
+
 class RegistrationSerializer(HyperlinkedModelSerializer):
     """ Serializer registration requests and creates new user"""
     password = serializers.CharField(
