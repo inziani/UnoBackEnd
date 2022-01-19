@@ -56,6 +56,6 @@ class Activity(models.Model):
         self.activity_category = activity_category
         return self.save()
 
-    def delete(self, ):
-        return self.delete()
+    # def delete(self, ):
+    #     return self.delete()
 

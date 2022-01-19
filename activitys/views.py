@@ -10,7 +10,8 @@ from rest_framework import viewsets
 from .models import Activity, ActivityCategory
 from .serializers import ActivityCategorySerializer, ActivitySerializer, ActivityUpdateSerializer
 from .permissions import IsOwnerOrReadOnly
-from activitys import permissions
+# from activitys import permissions
+
 
 
     # Refactor the generic class based views to use viewsets and routers and Hyperlinkedserialisers
