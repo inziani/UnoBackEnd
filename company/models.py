@@ -1,5 +1,5 @@
 from django.db import models
-from django_countries.fields import CountryField
+# from django_countries.fields import CountryField
 
 
 from constants import LANGUAGE, CURRENCY
@@ -13,8 +13,8 @@ class Company(models.Model):
     street = models.CharField(max_length=50)
     postOfficeBox = models.IntegerField(null=True, default=12345, max_length=5, blank=False)
     postalCode = models.IntegerField(null=True, default=00100, max_length=4, blank=False)
-    country = CountryField()
-    language = models.CharField(choices=LANGUAGE, default='', max_length=2)
+    country = models.CharField(max_length=50, null=True, blank=True)
+    language = models.CharField(choices=LANGUAGE, default='en', max_length=2)
     currency = models.CharField(choices=CURRENCY, default=KSH, max_length=3)
     landLine = models.IntegerField(max_length=15, null=True, blank=True)
     mobileNumber = models.CharField(max_length=15)
@@ -41,19 +41,43 @@ class Company(models.Model):
         self.currency = currency
         return self.save()
 
-class ChartOfaccounts(model.models):
-    pass
+class ChartOfaccounts(model.Models):
+    coaCode = models.CharField(max_length=4, null=False, blank=False, unique=True)
+    description = models.CharField(max_length=50, null=False, blank=False)
+    language = models.CharField(choices=LANGUAGE, default='en', max_length=2)
+    lengthGlAccNumber = models.IntegerField(max_length=12)
+    status = models.BooleanField(null=False, default=True)
+    dateCreated = models.DateTimeField(auto_now_add=True)
+    dateChanged = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ('coaCode',)
+
+    def __str__(self):
+        return f'{self.coaCode}, {self.description}'
+
+    def create(self, ):
+        return self.save()
+
+    def change(self, coaCode, description, language, lengthGlAccNumber, status):
+        self.coaCode = coaCode
+        self.description = description
+        self.language = language
+        self.lengthGlAccNumber = lengthGlAccNumber
+        self.status = status
+        self.language = language
+        return self.save()
+    
 
 class CompanyCode(models.Model):
     code = models.IntegerField(max_length=4, null=False, blank=False, unique=True)
     description = models.CharField(max_length=50, null=False, blank=False)
-    company = models.ForeignKey(Company, related_name='company', on_delete=PROTECT)
-    coa = models.
+    company = models.ForeignKey(Company, related_name='companyCode', on_delete=PROTECT)
+    coa = models.ForeignKey(ChartOfaccounts, related_name='companyCode', on_delete=PROTECT)
     dateCreated = models.DateTimeField(auto_now_add=True)
     dateChanged = models.DateTimeField(auto_now=True)
 
-     class Meta:
+    class Meta:
         ordering = ('code',)
 
     def __str__(self):
@@ -67,8 +91,6 @@ class CompanyCode(models.Model):
         self.company = company
         return self.save()
 
-class ControllingArea(models.Model):
+class ReportingArea(models.Model):
     pass
-
-
 

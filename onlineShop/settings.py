@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'activitys.apps.ActivitysConfig',
     'corsheaders',
     'rest_framework_simplejwt',
-    'django_countries'
+    # 'django_countries'
 
 ]
 
