@@ -1,4 +1,16 @@
+
+English = 'English'
+French = 'English'
+Spanish = 'English'
+Germany = 'English'
+KenyaShilling = 'KSH'
+UgandaShilling = 'UGX'
+TanzaniaShilling = 'TZS'
+USDollar = 'USD'
+BritishPound = 'GBP'
+
 LANGUAGE = [
+
   (English, 'en'),
   (French, 'fr'),
   (Spanish, 'es'),
@@ -6,9 +18,9 @@ LANGUAGE = [
 ]
 
 CURRENCY = [
-  ('Kenya Shilling', 'KSH'),
-  ('Uganda Shilling', 'UGX'),
-  ('Tanzania Shilling', 'TZS'),
-  ('US Dollar', 'USD'),
-  ('British Pound', 'GBP'),
+  (KenyaShilling, 'KSH'),
+  (UgandaShilling, 'UGX'),
+  (TanzaniaShilling, 'TZS'),
+  (USDollar, 'USD'),
+  (BritishPound, 'GBP'),
 ]

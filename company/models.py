@@ -1,8 +1,11 @@
 from django.db import models
+from django.db.models.deletion import CASCADE, PROTECT
+from django.conf import settings
+from django.contrib.auth import get_user_model
 # from django_countries.fields import CountryField
 
 
-from constants import LANGUAGE, CURRENCY
+from .constants import LANGUAGE, CURRENCY
 
 # Create your models here.
 
@@ -12,10 +15,10 @@ class Company(models.Model):
     companyName = models.CharField(max_length=50)
     street = models.CharField(max_length=50)
     postOfficeBox = models.IntegerField(null=True, default=12345, max_length=5, blank=False)
-    postalCode = models.IntegerField(null=True, default=00100, max_length=4, blank=False)
+    postalCode = models.IntegerField(null=True, default=100, max_length=4, blank=False)
     country = models.CharField(max_length=50, null=True, blank=True)
     language = models.CharField(choices=LANGUAGE, default='en', max_length=2)
-    currency = models.CharField(choices=CURRENCY, default=KSH, max_length=3)
+    currency = models.CharField(choices=CURRENCY, default='KSH', max_length=3)
     landLine = models.IntegerField(max_length=15, null=True, blank=True)
     mobileNumber = models.CharField(max_length=15)
     email = models.EmailField(max_length=254)
@@ -41,7 +44,7 @@ class Company(models.Model):
         self.currency = currency
         return self.save()
 
-class ChartOfaccounts(model.Models):
+class ChartOfaccounts(models.Model):
     coaCode = models.CharField(max_length=4, null=False, blank=False, unique=True)
     description = models.CharField(max_length=50, null=False, blank=False)
     language = models.CharField(choices=LANGUAGE, default='en', max_length=2)
