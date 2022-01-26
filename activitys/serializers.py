@@ -14,8 +14,7 @@ class ActivityCategorySerializer(HyperlinkedModelSerializer):
 
 class ActivitySerializer(ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    # category = serializers.ReadOnlyField(source='activity_category.id', read_only=True)
-    # activity_category = serializers.ForeignKeyRelatedField(read_only=True)
+
 
     class Meta:
         model = Activity

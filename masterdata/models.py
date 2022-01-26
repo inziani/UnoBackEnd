@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models.deletion import CASCADE, PROTECT
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from decimal import Decimal
 
 from company.constants import CURRENCY
 from company.models import ChartOfaccounts, CompanyCode
@@ -13,7 +14,7 @@ class TaxCode(models.Model):
     companyCode = models.ForeignKey(CompanyCode, related_name='companyCode_TaxCode', on_delete=PROTECT)
     taxCode = models.CharField(max_length=2, null=False, blank=False, unique=True)
     taxCodeDescription = models.CharField(max_length=50, null=False, blank=False)
-    taxCodePercentage = models.DecimalField(max_digits=15, decimal_places=2, blank=False, null=False, unique=True)
+    taxCodePercentage = models.DecimalField(max_digits=5, decimal_places=2, default=Decimal('0.00'), blank=False, null=False, unique=True)
     dateCreated = models.DateTimeField(auto_now_add=True)
     dateChanged = models.DateTimeField(auto_now=True)
 

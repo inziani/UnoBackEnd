@@ -9,7 +9,6 @@ from company.constants import CURRENCY
 
 # Create your models here.
 
-
 class GLAccountBalances(models.Model):
     currentDate = models.DateField(auto_now_add=True)
     localCurrency = models.CharField(choices=CURRENCY, blank=False, null=False, max_length=3)
@@ -20,10 +19,10 @@ class GLAccountBalances(models.Model):
     accountNumber = models.ForeignKey(GeneralLedgeAccountMaster, max_length=6, null=False, blank=False, related_name='accountNumber_GLAccountBalances', on_delete=PROTECT)
     glLongDescription = models.ForeignKey(GeneralLedgeAccountMaster, max_length=135, related_name='glLongDescription_GLAccountBalances', on_delete=PROTECT)
     currency = models.CharField(max_length=3, null=False, blank=False)
-    openingBalance = models.DecimalField(decimal_places=2, max_digits=15)
-    periodDebit = models.DecimalField(decimal_places=2, max_digits=15)
-    periodCredit = models.DecimalField(decimal_places=2, max_digits=15)
-    closingBalance = models.DecimalField(decimal_places=2, max_digits=15)
+    openingBalance = models.DecimalField(decimal_places=2, max_digits=17)
+    periodDebit = models.DecimalField(decimal_places=2, max_digits=17)
+    periodCredit = models.DecimalField(decimal_places=2, max_digits=17)
+    closingBalance = models.DecimalField(decimal_places=2, max_digits=17)
     dateCreated = models.DateTimeField(auto_now_add=True)
     dateChanged = models.DateTimeField(auto_now=True)
 

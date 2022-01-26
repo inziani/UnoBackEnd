@@ -49,7 +49,6 @@ class CompanyCode(models.Model):
     code = models.IntegerField(null=False, blank=False, unique=True)
     description = models.CharField(max_length=50, null=False, blank=False)
     company = models.ForeignKey(Company, related_name='companyCode', on_delete=PROTECT)
-    # coa = models.ForeignKey(ChartOfaccounts, related_name='companyCode', on_delete=PROTECT)
     dateCreated = models.DateTimeField(auto_now_add=True)
     dateChanged = models.DateTimeField(auto_now=True)
 

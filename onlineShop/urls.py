@@ -38,6 +38,8 @@ from users.urls import router as users_router
 router.extend(users_router)
 from activitys.urls import router as activitys_router
 router.extend(activitys_router)
+from accountbalances.urls import router as accountBalances_router
+router.extend(accountBalances_router)
 
 
 
