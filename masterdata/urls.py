@@ -7,6 +7,7 @@ from rest_framework.routers import DefaultRouter, SimpleRouter
 
 
 from masterdata.views import TaxCodeViewSet, GLAccountGroupViewSet, GeneralLedgeAccountMasterViewSet
+from masterdata import views
 
 
 # Create a router and register the viewsets with it

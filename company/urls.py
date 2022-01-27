@@ -7,6 +7,7 @@ from rest_framework.routers import DefaultRouter, SimpleRouter
 
 
 from company.views import CompanyViewSet, CompanyCodeViewSet, ChartOfaccountsViewSet, ReportingAreaViewSet
+from company import views
 
 
 # Create a router and register the viewsets with it

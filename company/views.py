@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework.permissions import(AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)
+from rest_framework.permissions import(AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly)
 from rest_framework import viewsets
 
 # Create your views here.
@@ -7,8 +7,7 @@ from rest_framework import viewsets
 
 from .models import Company, CompanyCode, ChartOfaccounts, ReportingArea
 from .serializers import CompanySerializer, CompanyCodeSerializer, ChartOfaccountsSerializer, ReportingAreaSerializer 
-from .permissions import IsOwnerOrReadOnly
-# from activitys import permissions
+from activitys.permissions import IsOwnerOrReadOnly
 
 
 

@@ -40,6 +40,12 @@ from activitys.urls import router as activitys_router
 router.extend(activitys_router)
 from accountbalances.urls import router as accountBalances_router
 router.extend(accountBalances_router)
+from accountitems.urls import router as accountitems_router
+router.extend(accountitems_router)
+from company.urls import router as company_router
+router.extend(company_router)
+from masterdata.urls import router as glmasterdata_router
+router.extend(glmasterdata_router)
 
 
 

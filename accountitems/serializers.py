@@ -1,6 +1,8 @@
 from rest_framework.serializers import HyperlinkedModelSerializer
 
-from .models import GLDocument, GLAccountLineItems, 
+
+from .models import GLDocument, GLAccountLineItems
+from users.serializers import serializers
 
 class GLDocumentSerializer(HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')

@@ -5,6 +5,7 @@ from rest_framework import viewsets
 from rest_framework.routers import DefaultRouter, SimpleRouter
 
 from .views import GLAccountLineItemsViewSet, GLDocumentViewSet
+from accountitems import views
 
 # Create a router and register the viewsets with it
 router = SimpleRouter()

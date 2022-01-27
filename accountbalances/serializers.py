@@ -1,12 +1,14 @@
 from rest_framework.serializers import HyperlinkedModelSerializer
 
-from .models import GLAccountBalances
+from accountbalances.models import GLAccountBalances
 from users.serializers import serializers
 
 
 
 class GLAccountBalancesSerializer(HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
+    companyCode = serializers.ReadOnlyField(source='companyCode.companyCode')
+
 
     class Meta:
         model = GLAccountBalances

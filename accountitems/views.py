@@ -5,9 +5,12 @@ from rest_framework.permissions import(AllowAny, IsAuthenticated, IsAdminUser, I
 # Create your views here.
 
 from .models import GLDocument, GLAccountLineItems
+from activitys.permissions import IsOwnerOrReadOnly
+from .serializers import GLAccountLineItemsSerializer, GLDocumentSerializer
 
 class GLDocumentViewSet(viewsets.ModelViewSet):
     queryset = GLDocument.objects.all()
+    serializer_class = GLDocumentSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
     def perform_create(self, serializer):
@@ -15,6 +18,7 @@ class GLDocumentViewSet(viewsets.ModelViewSet):
 
 class GLAccountLineItemsViewSet(viewsets.ModelViewSet):
     queryset = GLAccountLineItems.objects.all()
+    serializer_class = GLAccountLineItemsSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
     def perform_create(self, serializer):

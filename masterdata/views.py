@@ -1,11 +1,12 @@
 from django.shortcuts import render
-from rest_framework.permissions import(AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)
+from rest_framework.permissions import(AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly)
 from rest_framework import viewsets
 
 # Create your views here.
 
-from .models import TaxCode, GLAccountGroup, GeneralLedgeAccountMaster, 
+from .models import TaxCode, GLAccountGroup, GeneralLedgeAccountMaster 
 from .serializers import TaxCodeSerializer, GLAccountGroupSerializer, GeneralLedgeAccountMasterSerializer
+from activitys.permissions import IsOwnerOrReadOnly
 
 class TaxCodeViewSet(viewsets.ModelViewSet):
     """ This view set automatically provides for list, create, retrieve update and destory actions"""
