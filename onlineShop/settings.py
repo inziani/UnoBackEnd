@@ -50,15 +50,11 @@ INSTALLED_APPS = [
     'accountitems',
     'company',
     'masterdata',
-    'post'
+    'post',
 
 ]
 
 REST_FRAMEWORK = {
-
-    # 'DEFAULT_PARSER_CLASSES': [
-    #     'rest_framework.parsers.JSONParser',
-    # ],
 
    'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
@@ -107,16 +103,15 @@ SIMPLE_JWT = {
 
 JWT_AUTH = {
     'JWT_ALLOW_REFRESH': True,
-    # 'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3600),
     'JWT_EXPIRATION_DELTA': timedelta(days=2),
 }
 
 AUTH_USER_MODEL = 'users.User'
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -200,7 +195,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-CORS_ALLOWED_ORIGINS  = (
+CORS_ALLOWED_ORIGINS  = [
     'http://localhost:4200',
     'http://localhost:8080',
-)
+    'http://quotes.stormconsultancy.co.uk/random.json'
+]
+
+# CORS_ALLOWED_ORIGIN_REGESXES = []
+# CORS_ALLOW_ALL_ORIGINS[]
