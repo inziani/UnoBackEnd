@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+from corsheaders.defaults import default_methods, default_headers
 from pathlib import Path
 from datetime import datetime as dt, timedelta
 
@@ -114,6 +114,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    "corsheaders.middleware.CorsPostCsrfMiddleware",
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -196,10 +197,18 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 CORS_ALLOWED_ORIGINS  = [
-    'http://localhost:4200',
-    'http://localhost:8080',
-    'http://quotes.stormconsultancy.co.uk/random.json'
+    "http://localhost:4200",
+    "http://localhost:8080",
+    "http://quotes.stormconsultancy.co.uk",
 ]
+
+CORS_ALLOW_METHODS = list(default_methods)
+CORS_ALLOW_HEADERS = list(default_headers)
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:4200",
+]
+
 
 # CORS_ALLOWED_ORIGIN_REGESXES = []
 # CORS_ALLOW_ALL_ORIGINS[]
