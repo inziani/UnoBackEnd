@@ -18,7 +18,7 @@ class CustomUserAdmin(UserAdmin):
   form = UserChangeForm
   add_form = UserCreationForm
 
-  list_display = ('email', 'first_name', 'last_name', 'username', 'phone_number', 'is_staff', 'is_superuser')
+  list_display = ('email', 'first_name', 'last_name', 'username', 'phone_number', 'is_staff', 'is_superuser', 'date_of_birth')
   inlines = (UserProfileInline,)
   list_filter = ['is_superuser']
 
@@ -39,7 +39,7 @@ class CustomUserAdmin(UserAdmin):
   fieldsets = UserAdmin.fieldsets + (
   ('Personal Information', 
   {'fields':(
-    'gender', 'city','country',
+    'gender', 'city','country','date_of_birth',
     )
     }),
   )
