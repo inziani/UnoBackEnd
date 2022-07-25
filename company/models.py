@@ -66,12 +66,12 @@ class CompanyCode(models.Model):
         self.company = company
         return self.save()
 
-class ChartOfaccounts(models.Model):
+class ChartOfAccounts(models.Model):
     coaCode = models.CharField(max_length=4, null=False, blank=False, unique=True)
     companyCode = models.ForeignKey(CompanyCode, related_name='companyCode_ChartOfaccounts', on_delete=PROTECT)
     description = models.CharField(max_length=50, null=False, blank=False)
     language = models.CharField(choices=LANGUAGE, default='en', max_length=35)
-    lengthGlAccNumber = models.IntegerField()
+    lengthAccNumber = models.IntegerField()
     status = models.BooleanField(null=False, default=True)
     dateCreated = models.DateTimeField(auto_now_add=True)
     dateChanged = models.DateTimeField(auto_now=True)
@@ -94,8 +94,6 @@ class ChartOfaccounts(models.Model):
         self.language = language
         return self.save()
     
-
-
 
 class ReportingArea(models.Model):
     pass

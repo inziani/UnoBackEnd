@@ -37,8 +37,6 @@ class GLAccountGroup(models.Model):
     chartOfAccounts = models.ForeignKey(ChartOfaccounts, related_name='glAccountGroup', on_delete=PROTECT)
     accountGroup = models.CharField(max_length=4, null=False, blank=False, unique=True)
     description = models.CharField(max_length=50, null=False, blank=False)
-    fromAccount = models.IntegerField(null=False, blank=False, unique=True)
-    toAccount = models.IntegerField(null=False, blank=False, unique=True)
     dateCreated = models.DateTimeField(auto_now_add=True)
     dateChanged = models.DateTimeField(auto_now=True)
 
