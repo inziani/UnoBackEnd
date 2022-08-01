@@ -1,6 +1,6 @@
 
 from rest_framework.serializers import ModelSerializer, HyperlinkedModelSerializer
-from .models import Company, CompanyCode, ChartOfaccounts, ReportingArea
+from .models import Company, CompanyCode, ChartOfAccounts, ReportingArea
 from users.serializers import serializers
 
 
@@ -24,13 +24,13 @@ class CompanyCodeSerializer(HyperlinkedModelSerializer):
         # fields = '__all__'
         fields =  ('url', 'owner', 'id', 'code', 'description', 'company', 'dateCreated', 'dateChanged')
 
-class ChartOfaccountsSerializer(serializers.HyperlinkedModelSerializer):
+class ChartOfAccountsSerializer(serializers.HyperlinkedModelSerializer):
     # category = serializers.PrimaryKeyRelatedField(source='activity_category', read_only=True)
      owner = serializers.ReadOnlyField(source='owner.username')
 
 
      class Meta:
-        model = ChartOfaccounts
+        model = ChartOfAccounts
         fields = (
                  'url', 'owner', 'id', 'coaCode', 'companyCode',  'description', 'language', 'lengthGlAccNumber',
                 'status', 'dateCreated', 'dateChanged'

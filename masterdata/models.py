@@ -5,8 +5,8 @@ from django.contrib.auth import get_user_model
 from decimal import Decimal
 
 from company.constants import CURRENCY
-from company.models import ChartOfaccounts, CompanyCode
-from .constants import RECONACCOUNT
+from company.models import ChartOfAccounts, CompanyCode, ControllingArea, ReportingArea, BusinessArea
+from .constants import RECONACCOUNT, ACCOUNTTYPE
 
 # Create your models here.
 
@@ -34,7 +34,7 @@ class TaxCode(models.Model):
 
 class GLAccountGroup(models.Model):
     companyCode = models.ForeignKey(CompanyCode, related_name='companyCode_GLAccountGroup', on_delete=PROTECT)
-    chartOfAccounts = models.ForeignKey(ChartOfaccounts, related_name='glAccountGroup', on_delete=PROTECT)
+    chartOfAccounts = models.ForeignKey(ChartOfAccounts, related_name='glAccountGroup', on_delete=PROTECT)
     accountGroup = models.CharField(max_length=4, null=False, blank=False, unique=True)
     description = models.CharField(max_length=50, null=False, blank=False)
     dateCreated = models.DateTimeField(auto_now_add=True)
@@ -49,31 +49,59 @@ class GLAccountGroup(models.Model):
     def create(self, ):
         return self.save()
     
-    def change(self, chartOfAccounts, description, fromAccount,  toAccount):
+    def change(self, chartOfAccounts, description):
         self.chartOfAccounts = chartOfAccounts
         self.description = description
-        self.fromAccount = fromAccount
-        self.toAccount = toAccount
         return self.save()
 
 class GeneralLedgeAccountMaster(models.Model):
     accountNumber = models.IntegerField(null=False, blank=False, unique=True)
     companyCode = models.ForeignKey(CompanyCode, max_length=4, null=False, blank=False, related_name='GeneralLedgeAccountMaster', on_delete=PROTECT)
-    glAccountGroup = models.ForeignKey(GLAccountGroup, max_length=4, null= False, blank=True, related_name='GeneralLedgeAccountMaster', on_delete=PROTECT)
-    profitAndLossAccount = models.BooleanField()
-    balanceSheetAccount = models.BooleanField()
+    chartOfAccounts = models.ForeignKey(ChartOfAccounts, null=False, blank=False, related_name='GeneralLedgeAccountMaster', on_delete=PROTECT)
+    accountGroup = models.ForeignKey(GLAccountGroup, max_length=4, null= False, blank=True, related_name='GeneralLedgeAccountMaster', on_delete=PROTECT)
+    accountType = models.CharField(choices=ACCOUNTTYPE, null=False, blank=False, max_length=30)
+    reconciliationAccountInput = models.BooleanField()
+    reconciliationAccountType = models.CharField(choices=RECONACCOUNT, null=False, blank=False, max_length=30)
+    alternativeGLAccount = models.IntegerField(null=False, blank=False, unique=True)
     shortDescription = models.CharField(max_length=50)
     longDescription = models.CharField(max_length=135)
+    profitAndLossAccount = models.BooleanField()
+    balanceSheetAccount = models.BooleanField()
     accountCurrency = models.CharField(choices=CURRENCY, null=False, blank=False, max_length=3)
-    balancesLocalCurrency = models.BooleanField()
-    exchangeRateDiffKey = models.CharField(max_length=3)
+    balancesInLocalCurrency = models.BooleanField()
+    exchangeRateKey = models.CharField(max_length=3)
     taxCategory = models.CharField(max_length=2)
-    taxableItem = models.BooleanField()
-    reconciliationAccountType = models.CharField(choices=RECONACCOUNT, null=False, blank=False, max_length=30)
-    openItemMgt = models.BooleanField()
-    lineItemDisplay = models.BooleanField()
+    postingWithoutTaxAllowed = models.BooleanField()
+    openItemManagement = models.BooleanField()
+    lineItemManagement = models.BooleanField()
+    blockedForPosting = models.BooleanField()
+    markedForDeletion = models.BooleanField()
+    groupAccountNumber = models.IntegerField(null=False, blank=False, unique=True)
+    tradingPartner = models.IntegerField(null=False, blank=False, unique=False)
+    sortKey = models.CharField(null=False, blank=False, max_length=2)
+    authorizationGroup = models.CharField(null=False, blank=False, max_length=4)
+    fieldStatusGroup = models.CharField(null=False, blank=False, max_length=4)
+    postAutomaticallyOnly = models.BooleanField()
+    relevantToCashFlow = models.BooleanField()
+    houseBank = models.CharField(null=False, blank=False, max_length=4)
+    houseBankAccountID = models.IntegerField(null=False, blank=False, unique=True)
+    interestIndicator = models.BooleanField()
+    interestCalculationFrequency = models.IntegerField(null=False, blank=False, unique=True)
+    lastDateOfInterestCalculation = models.DateField()
+    keyDateofLastInterest = models.DateField()
+    controllingArea = models.ForeignKey(ControllingArea, max_length=4, null=False, blank=False, related_name='GeneralLedgeAccountMaster', on_delete=PROTECT)
+    costElement = models.IntegerField(null=False, blank=False, unique=True)
+    unitOfMeasure = models.CharField(null=False, blank=False, max_length=5)
+    businessArea = models.ForeignKey(BusinessArea, max_length=4, null=False, blank=False, related_name='GeneralLedgeAccountMaster', on_delete=PROTECT)
+    valuationGroup = models.CharField(null=False, blank=False, max_length=5)
+    inflationKey = models.CharField(null=False, blank=False, max_length=2)
+    toleranceGroup = models.CharField(null=False, blank=False, max_length=5)
+    planningLevel = models.CharField(null=False, blank=False, max_length=2)
+    accountManagedinExternalSystem = models.BooleanField()
+    supplementAutomaticPostings = models.BooleanField()
     dateCreated = models.DateTimeField(auto_now_add=True)
     dateChanged = models.DateTimeField(auto_now=True)
+    
 
     class Meta:
         ordering = ('accountNumber',)
@@ -84,10 +112,11 @@ class GeneralLedgeAccountMaster(models.Model):
     def create(self, ):
         return self.save()
     
-    def change(self , 
+    def change(self,
     companyCode, glAccountGroup, profitAndLossAccount, balanceSheetAccount, shortDescription, 
-    longDescription, accountCurrency, balancesLocalCurrency, exchangeRateDiffKey , taxCategory,  
-    taxableItem, reconciliationAccountType, openItemMgt,  lineItemDisplay):
+        longDescription, accountCurrency, balancesLocalCurrency, exchangeRateDiffKey , taxCategory , reconciliationAccountType, supplementAutomaticPostings, accountManagedinExternalSystem, planningLevel, toleranceGroup, inflationKey, valuationGroup, businessArea, unitOfMeasure, costElement, controllingArea, keyDateofLastInterest, lastDateOfInterestCalculation, interestCalculationFrequency, interestIndicator, houseBankAccountID, houseBank, relevantToCashFlow, postAutomaticallyOnly, fieldStatusGroup, authorizationGroup, sortKey, tradingPartner, groupAccountNumber, markedForDeletion, blockedForPosting, lineItemManagement, openItemManagement, postingWithoutTaxAllowed, exchangeRateKey, balancesInLocalCurrency 
+    
+    ):
         self.companyCode = companyCode
         self.glAccountGroup = glAccountGroup
         self.profitAndLossAccount = profitAndLossAccount
@@ -95,14 +124,11 @@ class GeneralLedgeAccountMaster(models.Model):
         self.shortDescription = shortDescription
         self.longDescription = longDescription
         self.accountCurrency = accountCurrency
-        self.accountCurrency = accountCurrency
         self.balancesLocalCurrency = balancesLocalCurrency
         self.exchangeRateDiffKey = exchangeRateDiffKey
         self.taxCategory = taxCategory
-        self.taxableItem = taxableItem
         self.reconciliationAccountType = reconciliationAccountType
-        self.openItemMgt = openItemMgt
-        self.lineItemDisplay = lineItemDisplay
+        self.openItemManagement = openItemManagement
         return self.save()
 
 

@@ -5,8 +5,8 @@ from rest_framework import viewsets
 # Create your views here.
 
 
-from .models import Company, CompanyCode, ChartOfaccounts, ReportingArea
-from .serializers import CompanySerializer, CompanyCodeSerializer, ChartOfaccountsSerializer, ReportingAreaSerializer 
+from .models import Company, CompanyCode, ChartOfAccounts, ReportingArea
+from .serializers import CompanySerializer, CompanyCodeSerializer, ChartOfAccountsSerializer, ReportingAreaSerializer 
 from activitys.permissions import IsOwnerOrReadOnly
 
 
@@ -34,12 +34,12 @@ class CompanyCodeViewSet(viewsets.ModelViewSet):
         serializer.save(owner=self.request.user)
 
 
-class ChartOfaccountsViewSet(viewsets.ModelViewSet):
+class ChartOfAccountsViewSet(viewsets.ModelViewSet):
     """
     This view set automatically provides for list, create, retrieve, update and destroy actions
     """
-    queryset = ChartOfaccounts.objects.all()
-    serializer_class = ChartOfaccountsSerializer
+    queryset = ChartOfAccounts.objects.all()
+    serializer_class = ChartOfAccountsSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
     

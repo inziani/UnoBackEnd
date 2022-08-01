@@ -98,3 +98,9 @@ class ChartOfAccounts(models.Model):
 class ReportingArea(models.Model):
     pass
 
+class ControllingArea(models.Model):
+    pass
+
+class BusinessArea(models.Model):
+    pass
+

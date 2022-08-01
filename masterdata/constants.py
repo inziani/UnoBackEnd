@@ -15,3 +15,10 @@ RECONACCOUNT = [
   (MATERIALS, 'Materials'),
   (NONE, 'None')
 ]
+
+ACCOUNTTYPE = [
+  (ASSETS, 'Assets'),
+  (PAYABLES, 'Accounts Payable'),
+  (RECEIVABLES, 'Accounts Receivable'),
+  (MATERIALS, 'Materials'),
+]
