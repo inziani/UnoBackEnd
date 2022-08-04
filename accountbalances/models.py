@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 
 from company.models import CompanyCode
-from masterdata.models import GeneralLedgeAccountMaster
+from masterdata.models import GeneralLedgerAccountMaster
 from company.constants import CURRENCY
 
 # Create your models here.
@@ -16,8 +16,8 @@ class GLAccountBalances(models.Model):
     fiscalYear = models.IntegerField(null=False, blank=False)
     ledger = models.CharField(max_length=2, null=False, blank=False, unique=True)
     postingPeriod = models.IntegerField(null=False, blank=False, unique=True)
-    accountNumber = models.ForeignKey(GeneralLedgeAccountMaster, max_length=6, null=False, blank=False, related_name='accountNumber_GLAccountBalances', on_delete=PROTECT)
-    glLongDescription = models.ForeignKey(GeneralLedgeAccountMaster, max_length=135, related_name='glLongDescription_GLAccountBalances', on_delete=PROTECT)
+    accountNumber = models.ForeignKey(GeneralLedgerAccountMaster, max_length=6, null=False, blank=False, related_name='accountNumber_GLAccountBalances', on_delete=PROTECT)
+    glLongDescription = models.ForeignKey(GeneralLedgerAccountMaster, max_length=135, related_name='glLongDescription_GLAccountBalances', on_delete=PROTECT)
     currency = models.CharField(max_length=3, null=False, blank=False)
     openingBalance = models.DecimalField(decimal_places=2, max_digits=17)
     periodDebit = models.DecimalField(decimal_places=2, max_digits=17)

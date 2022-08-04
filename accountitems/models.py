@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 
 from company.models import CompanyCode
-from masterdata.models import GeneralLedgeAccountMaster, TaxCode
+from masterdata.models import GeneralLedgerAccountMaster, TaxCode
 from company.constants import CURRENCY
 from .constants import POSTINGKEY
 
@@ -17,7 +17,7 @@ class GLDocument(models.Model):
     reference = models.CharField(max_length=50, null=False, blank=False)
     headerText = models.CharField(max_length=50, null=False, blank=False)
     companyCode = models.ForeignKey(CompanyCode, max_length=4, null=False, blank=False, related_name='companyCode_GLDocument', on_delete=PROTECT)
-    accountNumber = models.ForeignKey(GeneralLedgeAccountMaster, max_length=6, null=False, blank=False, related_name='accountNumber_GLDocument', on_delete=PROTECT)
+    accountNumber = models.ForeignKey(GeneralLedgerAccountMaster, max_length=6, null=False, blank=False, related_name='accountNumber_GLDocument', on_delete=PROTECT)
     shortDescription = models.CharField(max_length=50, null=False, blank=False)
     dr = models.CharField(choices=POSTINGKEY, max_length=6)
     cr = models.CharField(choices=POSTINGKEY, max_length=6)
@@ -36,7 +36,7 @@ class GLDocument(models.Model):
     
 
 class GLAccountLineItems(models.Model):
-    accountNumber = models.ForeignKey(GeneralLedgeAccountMaster, max_length=6, null=False, blank=False,  related_name='accountNumber_GLAccountLineItems', on_delete=PROTECT)
+    accountNumber = models.ForeignKey(GeneralLedgerAccountMaster, max_length=6, null=False, blank=False,  related_name='accountNumber_GLAccountLineItems', on_delete=PROTECT)
     companyCode = models.ForeignKey(CompanyCode, on_delete=PROTECT, null=False, blank=False, related_name='companyCode_GLAccountLineItems')
     documentNumber = models.IntegerField(null=False, blank=False, unique=True)
     documentType = models.CharField(max_length=2, blank=False, null=False)

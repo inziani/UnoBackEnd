@@ -4,8 +4,8 @@ from rest_framework import viewsets
 
 # Create your views here.
 
-from .models import TaxCode, GLAccountGroup, GeneralLedgeAccountMaster 
-from .serializers import TaxCodeSerializer, GLAccountGroupSerializer, GeneralLedgeAccountMasterSerializer
+from .models import TaxCode, GLAccountGroup, GeneralLedgerAccountMaster 
+from .serializers import TaxCodeSerializer, GLAccountGroupSerializer, GeneralLedgerAccountMasterSerializer
 from activitys.permissions import IsOwnerOrReadOnly
 
 class TaxCodeViewSet(viewsets.ModelViewSet):
@@ -29,12 +29,12 @@ class GLAccountGroupViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-class GeneralLedgeAccountMasterViewSet(viewsets.ModelViewSet):
+class GeneralLedgerAccountMasterViewSet(viewsets.ModelViewSet):
     """
     This view set automaticall provides for list, create, retrieve, update and destroy actions
     """
-    queryset = GeneralLedgeAccountMaster.objects.all()
-    serializer_class = GeneralLedgeAccountMasterSerializer
+    queryset = GeneralLedgerAccountMaster.objects.all()
+    serializer_class = GeneralLedgerAccountMasterSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
     

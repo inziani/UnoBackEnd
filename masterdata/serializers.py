@@ -1,6 +1,6 @@
 
 from rest_framework.serializers import ModelSerializer, HyperlinkedModelSerializer
-from .models import TaxCode, GLAccountGroup, GeneralLedgeAccountMaster
+from .models import TaxCode, GLAccountGroup, GeneralLedgerAccountMaster
 from users.serializers import serializers
 
 
@@ -25,12 +25,12 @@ class GLAccountGroupSerializer(ModelSerializer):
             'url', 'owner', 'id', 'companyCode', 'chartOfAccounts', 'accountGroup', 'description', 'fromAccount', 
             'toAccount', 'dateCreated', 'dateChanged' )
 
-class GeneralLedgeAccountMasterSerializer(serializers.HyperlinkedModelSerializer):
+class GeneralLedgerAccountMasterSerializer(serializers.HyperlinkedModelSerializer):
     # category = serializers.PrimaryKeyRelatedField(source='activity_category', read_only=True)
     owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
-        model = GeneralLedgeAccountMaster
+        model = GeneralLedgerAccountMaster
         fields = (
             'url', 'owner', 'id', 'accountNumber', 'companyCode', 'glAccountGroup','profitAndLossAccount', 'balanceSheetAccount', 'shortDescription', 'longDescription', 'accountCurrency', 'balancesLocalCurrency',
             'exchangeRateDiffKey', 'taxCategory', 'taxableItem', 'reconciliationAccountType', 'openItemMgt', 'lineItemDisplay', 'dateCreated', 'dateChanged'

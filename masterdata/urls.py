@@ -6,7 +6,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework.routers import DefaultRouter, SimpleRouter
 
 
-from masterdata.views import TaxCodeViewSet, GLAccountGroupViewSet, GeneralLedgeAccountMasterViewSet
+from masterdata.views import TaxCodeViewSet, GLAccountGroupViewSet, GeneralLedgerAccountMasterViewSet
 from masterdata import views
 
 
@@ -14,7 +14,7 @@ from masterdata import views
 router = SimpleRouter()
 router.register(r'taxCode', views.TaxCodeViewSet)
 router.register(r'glAccGrp', views.GLAccountGroupViewSet)
-router.register(r'glAccMaster', views.GeneralLedgeAccountMasterViewSet)
+router.register(r'glAccMaster', views.GeneralLedgerAccountMasterViewSet)
 
 # URL patterns are now determined automatically by the router
 urlpatterns = [

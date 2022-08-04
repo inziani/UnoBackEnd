@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models.deletion import CASCADE, PROTECT
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.utils.timezone import now
 # from django_countries.fields import CountryField
 
 
@@ -46,30 +47,30 @@ class Company(models.Model):
         return self.save()
 
 class CompanyCode(models.Model):
-    code = models.IntegerField(null=False, blank=False, unique=True)
-    description = models.CharField(max_length=50, null=False, blank=False)
-    company = models.ForeignKey(Company, related_name='companyCode', on_delete=PROTECT)
+    companyCode = models.IntegerField(null=False, blank=False, unique=True)
+    companyCodeName = models.CharField(max_length=50, null=False, blank=False)
+    company = models.ForeignKey(Company, related_name='CompanyCode', on_delete=PROTECT)
     dateCreated = models.DateTimeField(auto_now_add=True)
     dateChanged = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ('code',)
+        ordering = ('companyCode',)
 
     def __str__(self):
-        return f'{self.code}, {self.description}'
+        return f'{self.companyCode}, {self.companyCodeName}'
 
     def create(self, ):
         return self.save()
     
-    def change(self, description, company ):
-        self.description = description
+    def change(self, companyCodeName, company ):
+        self.companyCodeName = companyCodeName
         self.company = company
         return self.save()
 
 class ChartOfAccounts(models.Model):
     coaCode = models.CharField(max_length=4, null=False, blank=False, unique=True)
-    companyCode = models.ForeignKey(CompanyCode, related_name='companyCode_ChartOfaccounts', on_delete=PROTECT)
-    description = models.CharField(max_length=50, null=False, blank=False)
+    companyCode = models.ForeignKey(CompanyCode, related_name='ChartOfaccounts', on_delete=PROTECT)
+    chartOfAccountsName = models.CharField(max_length=50, null=False, blank=False)
     language = models.CharField(choices=LANGUAGE, default='en', max_length=35)
     lengthAccNumber = models.IntegerField()
     status = models.BooleanField(null=False, default=True)
@@ -80,14 +81,14 @@ class ChartOfAccounts(models.Model):
         ordering = ('coaCode',)
 
     def __str__(self):
-        return f'{self.companyCode}, {self.coaCode}, {self.description}'
+        return f'{self.companyCode}, {self.coaCode}, {self.chartOfAccountsName}'
 
     def create(self, ):
         return self.save()
 
-    def change(self, coaCode, description, language, lengthGlAccNumber, status):
+    def change(self, coaCode, chartOfAccountsName, language, lengthGlAccNumber, status):
         self.coaCode = coaCode
-        self.description = description
+        self.chartOfAccountsName = chartOfAccountsName
         self.language = language
         self.lengthGlAccNumber = lengthGlAccNumber
         self.status = status
@@ -96,11 +97,77 @@ class ChartOfAccounts(models.Model):
     
 
 class ReportingArea(models.Model):
-    pass
+    reportingArea = models.CharField(max_length=4, null=False, blank=False, unique=True, default='')
+    reportingAreaName = models.CharField(max_length=50, null=False, blank=False, default='')
+    personResponsible = models.CharField(max_length=135, null=False, blank=False, default='')
+    chartOfAccounts = models.ForeignKey(ChartOfAccounts, related_name='ReportingArea', on_delete=PROTECT, default='')
+    companyCode = models.ForeignKey(CompanyCode, related_name='ReportingArea', on_delete=PROTECT, default='')
+    dateCreated = models.DateTimeField(default=now)
+    dateChanged = models.DateTimeField(default=now)
+
+    class Meta:
+        ordering = ('reportingArea',)
+
+    def __str__(self):
+        return f'{self.reportingArea}, {self.reportingAreaName}'
+
+    def create(self, ):
+        return self.save()
+    
+    def change(self, reportingAreaName, companyCode, chartOfAccounts ):
+        self.reportingAreaName = reportingAreaName
+        self.companyCode = companyCode
+        self.chartOfAccounts = chartOfAccounts
+        return self.save()
+    
 
 class ControllingArea(models.Model):
-    pass
+    controllingArea = models.CharField(max_length=4, null=False, blank=False, unique=True,default='')
+    controllingAreaName = models.CharField(max_length=50, null=False, blank=False, default='')
+    personResponsible = models.CharField(max_length=135, null=False, blank=False, default='')
+    chartOfAccounts = models.ForeignKey(ChartOfAccounts, related_name='ControllingArea', on_delete=PROTECT, default='')
+    companyCode = models.ForeignKey(CompanyCode, related_name='ControllingArea', on_delete=PROTECT, default='')
+    dateCreated = models.DateTimeField(default=now)
+    dateChanged = models.DateTimeField(default=now)
+
+    class Meta:
+        ordering = ('controllingArea',)
+
+    def __str__(self):
+        return f'{self.controllingArea}, {self.controllingAreaName}'
+
+    def create(self, ):
+        return self.save()
+    
+    def change(self, controllingAreaName, companyCode, chartOfAccounts ):
+        self.controllingAreaName = controllingAreaName
+        self.companyCode = companyCode
+        self.chartOfAccounts = chartOfAccounts
+        return self.save()
+    
 
 class BusinessArea(models.Model):
-    pass
+    businessArea = models.CharField(max_length=4, null=False, blank=False, unique=True, default='')
+    businessAreaName = models.CharField(max_length=50, null=False, blank=False, default='')
+    personResponsible = models.CharField(max_length=135, null=False, blank=False, default='')
+    chartOfAccounts = models.ForeignKey(ChartOfAccounts, related_name='BusinessArea', on_delete=PROTECT, default='')
+    companyCode = models.ForeignKey(CompanyCode, related_name='BusinessArea', on_delete=PROTECT, default='')
+    dateCreated = models.DateTimeField(default=now)
+    dateChanged = models.DateTimeField(default=now)
+
+    class Meta:
+        ordering = ('businessArea',)
+
+    def __str__(self):
+        return f'{self.businessAreaName}, {self.chartOfAccounts}, {self.companyCode}'
+
+    def create(self, ):
+        return self.save()
+    
+    def change(self, businessAreaName, companyCode, chartOfAccounts ):
+        self.businessAreaName = businessAreaName
+        self.companyCode = companyCode
+        self.chartOfAccounts = chartOfAccounts
+        return self.save()
+    
 
