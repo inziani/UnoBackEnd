@@ -11,7 +11,6 @@ from .constants import LANGUAGE, CURRENCY
 
 # Create your models here.
 
-
 class Company(models.Model):
     company = models.CharField(max_length=4, null=False, blank=False, unique=True)
     companyName = models.CharField(max_length=50)
@@ -25,7 +24,7 @@ class Company(models.Model):
     mobileNumber = models.CharField(max_length=15)
     email = models.EmailField(max_length=254)
     dateCreated = models.DateTimeField(auto_now_add=True)
-    dateChanged = models.DateTimeField(auto_now=True)
+    dateChanged = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ('company',)

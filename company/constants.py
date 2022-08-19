@@ -1,8 +1,9 @@
 
-English = 'English'
-French = 'English'
-Spanish = 'English'
-Germany = 'English'
+English = 'en'
+French = 'fr'
+Spanish = 'es'
+Germany = 'de'
+Kiswahili = 'swa'
 KenyaShilling = 'KSH'
 UgandaShilling = 'UGX'
 TanzaniaShilling = 'TZS'
@@ -12,6 +13,7 @@ BritishPound = 'GBP'
 LANGUAGE = [
 
   (English, 'en'),
+  (Kiswahili, 'swa'),
   (French, 'fr'),
   (Spanish, 'es'),
   (Germany, 'de'),
