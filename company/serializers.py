@@ -1,45 +1,50 @@
 
 from rest_framework.serializers import ModelSerializer, HyperlinkedModelSerializer
-from .models import Company, CompanyCode, ChartOfAccounts, ReportingArea
+from .models import Company, CompanyCode, ChartOfAccounts, ReportingArea, ControllingArea, BusinessArea
 from users.serializers import serializers
 
 
 
+
 class CompanySerializer(HyperlinkedModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
         model = Company
         fields = (
             'url', 'id', 'company', 'companyName', 'street', 'postOfficeBox', 'postalCode', 'country', 'language',
-            'currency', 'landLine', 'mobileNumber', 'email', 'dateCreated', 'dateChanged', 'owner')
+            'currency', 'landLine', 'mobileNumber', 'email', 'dateCreated', 'dateChanged')
 
 
 class CompanyCodeSerializer(HyperlinkedModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.username')
-
 
     class Meta:
         model = CompanyCode
-        # fields = '__all__'
-        fields =  ('url', 'owner', 'id', 'code', 'description', 'company', 'dateCreated', 'dateChanged')
+        fields =  ('url', 'id', 'companyCode', 'companyCodeName', 'company', 'dateCreated', 'dateChanged')
 
 class ChartOfAccountsSerializer(serializers.HyperlinkedModelSerializer):
-    # category = serializers.PrimaryKeyRelatedField(source='activity_category', read_only=True)
-     owner = serializers.ReadOnlyField(source='owner.username')
-
 
      class Meta:
         model = ChartOfAccounts
         fields = (
-                 'url', 'owner', 'id', 'coaCode', 'companyCode',  'description', 'language', 'lengthGlAccNumber',
+                 'url', 'id', 'coaCode', 'companyCode',  'chartOfAccountsName', 'language', 'lengthAccNumber',
                 'status', 'dateCreated', 'dateChanged'
                  )
 
 class ReportingAreaSerializer(serializers.HyperlinkedModelSerializer):
-    # category = serializers.PrimaryKeyRelatedField(source='activity_category', read_only=True)
-     owner = serializers.ReadOnlyField(source='owner.username')
 
      class Meta:
         model = ReportingArea
-        fields = ('url', 'owner', 'id')
+        fields = ('url', 'id', 'reportingArea', 'reportingAreaName', 'personResponsible', 'chartOfAccounts', 'companyCode',
+        'dateCreated', 'dateChanged')
+
+class ControllingAreaSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = ControllingArea
+        fields = ('url', 'id', 'controllingArea', 'controllingAreaName', 'personResponsible', 'chartOfAccounts', 'companyCode', 'dateCreated', 'dateChanged')
+
+class BusinessAreaSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = BusinessArea
+        fields = ('url', 'id', 'businessArea', 'businessAreaName', 'personResponsible', 'chartOfAccounts', 'companyCode', 'dateCreated', 'dateChanged')
