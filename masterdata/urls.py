@@ -12,9 +12,9 @@ from masterdata import views
 
 # Create a router and register the viewsets with it
 router = SimpleRouter()
-router.register(r'taxCode', views.TaxCodeViewSet)
-router.register(r'glAccGrp', views.GLAccountGroupViewSet)
-router.register(r'glAccMaster', views.GeneralLedgerAccountMasterViewSet)
+router.register(r'taxCodes', views.TaxCodeViewSet)
+router.register(r'generalLedgerAccountGroup', views.GLAccountGroupViewSet)
+router.register(r'generalLedgerAccountMaster', views.GeneralLedgerAccountMasterViewSet)
 
 # URL patterns are now determined automatically by the router
 urlpatterns = [
