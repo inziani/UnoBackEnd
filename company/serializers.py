@@ -15,13 +15,13 @@ class CompanySerializer(HyperlinkedModelSerializer):
             'currency', 'landLine', 'mobileNumber', 'email', 'dateCreated', 'dateChanged')
 
 
-class CompanyCodeSerializer(HyperlinkedModelSerializer):
+class CompanyCodeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CompanyCode
         fields =  ('url', 'id', 'companyCode', 'companyCodeName', 'company', 'dateCreated', 'dateChanged')
 
-class ChartOfAccountsSerializer(serializers.HyperlinkedModelSerializer):
+class ChartOfAccountsSerializer(serializers.ModelSerializer):
 
      class Meta:
         model = ChartOfAccounts
@@ -30,20 +30,20 @@ class ChartOfAccountsSerializer(serializers.HyperlinkedModelSerializer):
                 'status', 'dateCreated', 'dateChanged'
                  )
 
-class ReportingAreaSerializer(serializers.HyperlinkedModelSerializer):
+class ReportingAreaSerializer(serializers.ModelSerializer):
 
      class Meta:
         model = ReportingArea
         fields = ('url', 'id', 'reportingArea', 'reportingAreaName', 'personResponsible', 'chartOfAccounts', 'companyCode',
         'dateCreated', 'dateChanged')
 
-class ControllingAreaSerializer(serializers.HyperlinkedModelSerializer):
+class ControllingAreaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ControllingArea
         fields = ('url', 'id', 'controllingArea', 'controllingAreaName', 'personResponsible', 'chartOfAccounts', 'companyCode', 'dateCreated', 'dateChanged')
 
-class BusinessAreaSerializer(serializers.HyperlinkedModelSerializer):
+class BusinessAreaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BusinessArea
