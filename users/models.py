@@ -50,7 +50,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
   def __str__(self):
     """ Returns the string representation os this 'User'. This string is used when a 'User' is printed in the console"""
-    return self.email
+    return f'{self.first_name}, + " " + {self.middle_name} + {self.last_name},  {self.email}'
 
   def email_user(self,subject, message, from_email = None, **kwargs):
     "Sends and email to this user"

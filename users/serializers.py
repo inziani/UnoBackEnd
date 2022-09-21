@@ -28,10 +28,10 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 
 class UserSerializer(HyperlinkedModelSerializer):
-
     class Meta:
         model = User
-        fields = ('url', 'id', 'username', 'first_name', 'middle_name', 'last_name', 'email', 'password',)
+        # fields = ('url', 'id', 'username', 'first_name', 'middle_name', 'last_name', 'email', 'password',)
+        fields = '__all__'
 
 class UserProfileSerializer(HyperlinkedModelSerializer):
     user = serializers.HyperlinkedRelatedField(view_name = 'userprofile-detail', queryset=User.objects.all())

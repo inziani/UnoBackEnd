@@ -16,35 +16,40 @@ class CompanySerializer(HyperlinkedModelSerializer):
 
 
 class CompanyCodeSerializer(serializers.ModelSerializer):
+    company = serializers.StringRelatedField()
 
     class Meta:
         model = CompanyCode
         fields =  ('url', 'id', 'companyCode', 'companyCodeName', 'company', 'dateCreated', 'dateChanged')
+        # fields = '__all__'
 
 class ChartOfAccountsSerializer(serializers.ModelSerializer):
+    companyCode = serializers.StringRelatedField()
 
-     class Meta:
+    class Meta:
         model = ChartOfAccounts
         fields = (
                  'url', 'id', 'coaCode', 'companyCode',  'chartOfAccountsName', 'language', 'lengthAccNumber',
-                'status', 'dateCreated', 'dateChanged'
+                'blockedForPosting', 'dateCreated', 'dateChanged'
                  )
 
 class ReportingAreaSerializer(serializers.ModelSerializer):
-
-     class Meta:
+    companyCode = serializers.StringRelatedField()
+    
+    class Meta:
         model = ReportingArea
-        fields = ('url', 'id', 'reportingArea', 'reportingAreaName', 'personResponsible', 'chartOfAccounts', 'companyCode',
+        fields = ('url', 'id', 'reportingArea', 'reportingAreaName', 'personResponsible', 'companyCode',
         'dateCreated', 'dateChanged')
 
 class ControllingAreaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ControllingArea
-        fields = ('url', 'id', 'controllingArea', 'controllingAreaName', 'personResponsible', 'chartOfAccounts', 'companyCode', 'dateCreated', 'dateChanged')
+        fields = ('url', 'id', 'controllingArea', 'controllingAreaName', 'personResponsible', 'companyCode', 'dateCreated', 'dateChanged')
 
 class BusinessAreaSerializer(serializers.ModelSerializer):
+    companyCode = serializers.StringRelatedField()
 
     class Meta:
         model = BusinessArea
-        fields = ('url', 'id', 'businessArea', 'businessAreaName', 'personResponsible', 'chartOfAccounts', 'companyCode', 'dateCreated', 'dateChanged')
+        fields = ('url', 'id', 'businessArea', 'businessAreaName', 'personResponsible', 'companyCode', 'dateCreated', 'dateChanged')
