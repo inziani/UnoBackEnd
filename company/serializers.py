@@ -16,7 +16,7 @@ class CompanySerializer(HyperlinkedModelSerializer):
 
 
 class CompanyCodeSerializer(serializers.ModelSerializer):
-    company = serializers.StringRelatedField()
+    # company = serializers.StringRelatedField()
 
     class Meta:
         model = CompanyCode
@@ -24,7 +24,7 @@ class CompanyCodeSerializer(serializers.ModelSerializer):
         # fields = '__all__'
 
 class ChartOfAccountsSerializer(serializers.ModelSerializer):
-    companyCode = serializers.StringRelatedField()
+    # companyCode = serializers.StringRelatedField()
 
     class Meta:
         model = ChartOfAccounts
