@@ -48,7 +48,7 @@ class ControllingAreaSerializer(serializers.ModelSerializer):
         fields = ('url', 'id', 'controllingArea', 'controllingAreaName', 'personResponsible', 'companyCode', 'dateCreated', 'dateChanged')
 
 class BusinessAreaSerializer(serializers.ModelSerializer):
-    companyCode = serializers.StringRelatedField()
+    # companyCode = serializers.StringRelatedField()
 
     class Meta:
         model = BusinessArea

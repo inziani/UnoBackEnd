@@ -48,8 +48,6 @@ from masterdata.urls import router as glmasterdata_router
 router.extend(glmasterdata_router)
 
 
-
-
 urlpatterns = [
     
     path('admin/', admin.site.urls),
