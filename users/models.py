@@ -1,6 +1,5 @@
 # Create your models here.
 
-#import _typeshed
 import rest_framework_simplejwt as jwt
 from django.conf import settings
 from datetime import datetime, timedelta
@@ -11,11 +10,8 @@ from django.contrib.auth import get_user_model
 from django.db.models.base import Model
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-# from django_countries.fields import CountryField
 
 from .constants import GENDER
-
-
 
 class User(AbstractBaseUser, PermissionsMixin):
   username = models.CharField(unique=True, max_length=255, default='USERNAME')
@@ -90,6 +86,40 @@ class UserProfile(models.Model):
 
   def save(self, *args, **kwargs):
     super().save(*args, **kwargs)
+
+
+class EmployeeStaffID(models.Model):
+  user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, primary_key=True, related_name="emp_id")
+  staffID = models.IntegerField(unique=True, max_length = 10)
+  startDate= models.DateTimeField()
+  endDate = models.DateTimeField()
+
+  def __str__():
+    return f'{ self.user} + " " + {self.staff_id} '
+
+  def save(self, *args, **kwargs):
+    super().save(*args, **kwargs)
+
+class EmployeeNextOfKin(models.Model):
+  # First Name
+  # Middle Name
+  # Last Name
+  # ID
+  
+  return
+
+class EmployeeMaritalInformation(models.Model):
+  return
+
+class EmployeeDependants(models.Model):
+  return
+
+class EmployeeBankInformation(models.Model):
+  bank = CharField()
+  branch = CharField()
+  bankAccount = IntegerField()
+
+
 
 
 
