@@ -4,12 +4,13 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework.routers import DefaultRouter, SimpleRouter
 
 from users import views
-from users.views import UserViewSet, RegistrationViewSet, UserProfileViewSet
+from users.views import UserViewSet, RegistrationViewSet, UserProfileViewSet, EmployeeIDInformationViewSet
 
 router = SimpleRouter()
 
 router.register(r'users', views.UserViewSet)
 router.register(r'user-profile', views.UserProfileViewSet)
+router.register(r'empID', views.EmployeeIDInformationViewSet)
 router.register(r'register', views.RegistrationViewSet)
 
 

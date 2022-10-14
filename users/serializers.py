@@ -6,7 +6,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 
-from .models import User, UserProfile
+from .models import User, UserProfile, EmployeeIDInformation
 from activitys.models import ActivityCategory, Activity
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -41,6 +41,13 @@ class UserProfileSerializer(HyperlinkedModelSerializer):
         model = UserProfile
         fields = ('url', 'user', 'bio', 'hobbies', 'profile_pic', 'create_at', 'updated_at')
 
+class EmployeeIDInformationSerializer(ModelSerializer):
+    # staffID = serializers.HyperlinkedRelatedField(view_name = 'empID-detail', queryset=User.objects.all())
+    staffID = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    
+    class Meta:
+        model = EmployeeIDInformation
+        fields = ('url', 'staffID', 'identificationDocument', 'identificationNumber', 'taxNumber', 'startDate', 'endDate')
 
 class RegistrationSerializer(HyperlinkedModelSerializer):
     """ Serializer registration requests and creates new user"""

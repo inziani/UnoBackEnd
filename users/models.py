@@ -42,11 +42,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     verbose_name_plural = 'users'
 
   def display_name(self):
-    return f'{self.first_name} + " " {self.last_name}'
+    return f'{self.first_name} {self.middle_name} {self.last_name}'
 
   def __str__(self):
     """ Returns the string representation os this 'User'. This string is used when a 'User' is printed in the console"""
-    return f'{self.first_name}, + " " + {self.middle_name} + {self.last_name},  {self.email}'
+    return f'{self.first_name} {self.middle_name} {self.last_name}'
 
   def email_user(self,subject, message, from_email = None, **kwargs):
     "Sends and email to this user"
@@ -69,7 +69,6 @@ class User(AbstractBaseUser, PermissionsMixin):
       'id': self.pk,
       'exp': int(dt.strftime('%s'))
     }, settings.SECRET_KEY, algorithm="HS256")
-
     return token.decode('utf-8')
 
 class UserProfile(models.Model):
@@ -82,42 +81,118 @@ class UserProfile(models.Model):
   updated_at = models.DateTimeField(default=timezone.now)
 
   def __str__(self):
-    return f'{ self.user.email } + " " + Profile'
+    return f'{ self.user.first_name } { self.user.middle_name } { self.user.last_name }'
 
   def save(self, *args, **kwargs):
     super().save(*args, **kwargs)
 
 
-class EmployeeStaffID(models.Model):
-  user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, primary_key=True, related_name="emp_id")
-  staffID = models.IntegerField(unique=True, max_length = 10)
-  startDate= models.DateTimeField()
-  endDate = models.DateTimeField()
+class EmployeeIDInformation(models.Model):
+  staffID = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, primary_key=True, related_name="emp_id")
+  identificationDocument = models.CharField(max_length=150)
+  identificationNumber = models.CharField(max_length=150)
+  taxNumber = models.CharField(max_length=150)
+  startDate= models.DateTimeField(default=timezone.now)
+  endDate = models.DateTimeField(null=True, blank=True)
 
-  def __str__():
-    return f'{ self.user} + " " + {self.staff_id} '
+  def __str__(self):
+    return f'{self.staffID.id}  - { self.staffID.first_name } { self.staffID.middle_name } { self.staffID.last_name }' 
+    
 
   def save(self, *args, **kwargs):
     super().save(*args, **kwargs)
 
 class EmployeeNextOfKin(models.Model):
-  # First Name
-  # Middle Name
-  # Last Name
-  # ID
+  staffID = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, primary_key=True, related_name="emp_kin")
+  email = models.EmailField(unique=False)
+  relationship = models.CharField(max_length=150)
+  first_name = models.CharField(max_length=150)
+  middle_name = models.CharField(max_length=150, default='Middle')
+  last_name = models.CharField(max_length=150)
+  phone_number = models.CharField(max_length=13)
+  date_of_birth = models.DateField(blank=True, null=True)
+  gender = models.CharField(choices=GENDER, default='',max_length=6)
+  city = models.CharField(verbose_name= _("City"), blank=True, null=True, max_length=255)
+  country = models.CharField(verbose_name= _("Country"), blank=True, null=True, max_length=255)
+  residentialAddress = models.CharField(max_length=150)
+  identificationDocument = models.CharField(max_length=150)
+  identificationNumber = models.CharField(max_length=150)
+  taxNumber = models.CharField(max_length=150)
   
-  return
+
+  def __str__(self):
+    return f'{ self.staffID.id}  - { self.staffID.first_name } { self.staffID.middle_name } { self.staffID.last_name }' 
+    
+
+  def save(self, *args, **kwargs):
+    super().save(*args, **kwargs)
 
 class EmployeeMaritalInformation(models.Model):
-  return
+  staffID = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, primary_key=True, related_name="emp_marital")
+  email = models.EmailField(unique=False)
+  first_name = models.CharField(max_length=150)
+  middle_name = models.CharField(max_length=150, default='Middle')
+  last_name = models.CharField(max_length=150)
+  phone_number = models.CharField(max_length=13)
+  date_of_birth = models.DateField(blank=True, null=True)
+  relationship = models.CharField(max_length=150)
+  marriageDate = models.DateField(blank=True, null=True)
+  marriageCertificateNumber = models.CharField(max_length=150)
+  gender = models.CharField(choices=GENDER, default='',max_length=6)
+  city = models.CharField(verbose_name= _("City"), blank=True, null=True, max_length=255)
+  country = models.CharField(verbose_name= _("Country"), blank=True, null=True, max_length=255)
+  residentialAddress = models.CharField(max_length=150)
+  identificationDocument = models.CharField(max_length=150)
+  identificationNumber = models.CharField(max_length=150)
+  taxNumber = models.CharField(max_length=150)
+  
+
+  def __str__(self):
+    return f'{ self.staffID.id}  - { self.staffID.first_name } { self.staffID.middle_name } { self.staffID.last_name }' 
+   
+
+  def save(self, *args, **kwargs):
+    super().save(*args, **kwargs)
 
 class EmployeeDependants(models.Model):
-  return
+  staffID = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, primary_key=True, related_name="emp_dependants")
+  email = models.EmailField(unique=False)
+  first_name = models.CharField(max_length=150)
+  middle_name = models.CharField(max_length=150, default='Middle')
+  last_name = models.CharField(max_length=150)
+  phone_number = models.CharField(max_length=13)
+  date_of_birth = models.DateField(blank=True, null=True)
+  gender = models.CharField(choices=GENDER, default='',max_length=6)
+  city = models.CharField(verbose_name= _("City"), blank=True, null=True, max_length=255)
+  country = models.CharField(verbose_name= _("Country"), blank=True, null=True, max_length=255)
+  relationship = models.CharField(max_length=150)
+  residentialAddress = models.CharField(max_length=150)
+  identificationDocument = models.CharField(max_length=150)
+  identificationNumber = models.CharField(max_length=150)
+  taxNumber = models.CharField(max_length=150)
+  
+
+  def __str__(self):
+    return f'{ self.staffID.id}  - { self.staffID.first_name } { self.staffID.middle_name } { self.staffID.last_name }' 
+   
+
+  def save(self, *args, **kwargs):
+    super().save(*args, **kwargs)
 
 class EmployeeBankInformation(models.Model):
-  bank = CharField()
-  branch = CharField()
-  bankAccount = IntegerField()
+  staffID = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, primary_key=True, related_name="emp_bank")
+  bank = models.CharField(max_length=150)
+  bankBranch = models.CharField(max_length=150)
+  bankAccountNumber = models.CharField(max_length=150)
+  city = models.CharField(max_length=150)
+  country = models.CharField(max_length=150)
+
+  def __str__(self):
+    return f'{ self.staffID.id}  - { self.staffID.first_name } { self.staffID.middle_name } { self.staffID.last_name }' 
+   
+
+  def save(self, *args, **kwargs):
+    super().save(*args, **kwargs)
 
 
 
