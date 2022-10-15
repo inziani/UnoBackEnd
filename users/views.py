@@ -9,10 +9,10 @@ from rest_framework.reverse import reverse
 from rest_framework import viewsets, status
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from .models import User, UserProfile, EmployeeBankInformation, EmployeeIDInformation
+from .models import User, UserProfile, EmployeeBankInformation, EmployeeIDInformation, EmployeeBankInformation, EmployeeMaritalInformation, EmployeeDependants, EmployeeNextOfKin
 from activitys.models import ActivityCategory
-from .serializers import UserSerializer, UserProfileSerializer, RegistrationSerializer, CustomTokenObtainPairSerializer, EmployeeIDInformationSerializer
-# from .serializers import  RegistrationSerializer, CustomTokenObtainPairSerializer
+from .serializers import UserSerializer, UserProfileSerializer, RegistrationSerializer, CustomTokenObtainPairSerializer, EmployeeIDInformationSerializer, EmployeeMaritalInformationSerializer, EmployeeNextOfKinSerializer, EmployeeDependantsSerializer, EmployeeBankInformationSerializer
+
 
 # Create your views here.
 
@@ -39,6 +39,27 @@ class EmployeeIDInformationViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = EmployeeIDInformation.objects.all()
     serializer_class = EmployeeIDInformationSerializer
     permission_classes = [IsAuthenticated]
+
+class EmployeeNextOfKinViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = EmployeeNextOfKin.objects.all()
+    serializer_class = EmployeeNextOfKinSerializer
+    permission_classes = [IsAuthenticated]
+
+class EmployeeMaritalInformationViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = EmployeeMaritalInformation.objects.all()
+    serializer_class = EmployeeMaritalInformationSerializer
+    permission_classes = [IsAuthenticated]
+
+class EmployeeDependantsViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = EmployeeDependants.objects.all()
+    serializer_class = EmployeeDependantsSerializer
+    permission_classes = [IsAuthenticated]
+
+class EmployeeBankInformationViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = EmployeeBankInformation.objects.all()
+    serializer_class = EmployeeBankInformationSerializer
+    permission_classes = [IsAuthenticated]
+
 
 class RegistrationViewSet(viewsets.ModelViewSet):
     # Allow any user (authenticated or not) to hit this endpoint

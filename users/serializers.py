@@ -6,7 +6,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 
-from .models import User, UserProfile, EmployeeIDInformation
+from .models import User, UserProfile, EmployeeIDInformation, EmployeeBankInformation, EmployeeDependants, EmployeeMaritalInformation, EmployeeNextOfKin
 from activitys.models import ActivityCategory, Activity
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -42,12 +42,41 @@ class UserProfileSerializer(HyperlinkedModelSerializer):
         fields = ('url', 'user', 'bio', 'hobbies', 'profile_pic', 'create_at', 'updated_at')
 
 class EmployeeIDInformationSerializer(ModelSerializer):
-    # staffID = serializers.HyperlinkedRelatedField(view_name = 'empID-detail', queryset=User.objects.all())
     staffID = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     
     class Meta:
         model = EmployeeIDInformation
         fields = ('url', 'staffID', 'identificationDocument', 'identificationNumber', 'taxNumber', 'startDate', 'endDate')
+
+class EmployeeNextOfKinSerializer(ModelSerializer):
+    staffID = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+
+    class Meta:
+        model = EmployeeNextOfKin
+        fields = ('staffID', 'email', 'first_name', 'middle_name', 'last_name', 'phone_number', 'date_of_birth', 'relationship','gender', 'city', 'country', 'residentialAddress', 'identificationDocument', 'identificationNumber', 'taxNumber')
+
+class EmployeeMaritalInformationSerializer(ModelSerializer):
+    staffID = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+
+    class Meta:
+        model = EmployeeMaritalInformation
+        fields = ('staffID', 'email', 'first_name', 'middle_name', 'last_name', 'phone_number', 'date_of_birth', 'relationship', 'marriageDate', 'marriageCertificateNumber', 'gender', 'city', 'country', 'residentialAddress', 'identificationDocument', 'identificationNumber', 'taxNumber')
+
+class EmployeeDependantsSerializer(ModelSerializer):
+    staffID = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+
+    class Meta:
+        model = EmployeeDependants
+        fields = ('staffID', 'email', 'first_name', 'middle_name', 'last_name', 'phone_number', 'date_of_birth', 'relationship', 'gender', 'city', 'country', 'residentialAddress', 'identificationDocument', 'identificationNumber', 'taxNumber')
+
+class EmployeeBankInformationSerializer(ModelSerializer):
+    staffID = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+
+    class Meta:
+        model = EmployeeBankInformation
+        fields = ('staffID', 'bank', 'bankBranch', 'bankAccountNumber', 'city', 'country')
+
+
 
 class RegistrationSerializer(HyperlinkedModelSerializer):
     """ Serializer registration requests and creates new user"""
