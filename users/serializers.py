@@ -76,8 +76,6 @@ class EmployeeBankInformationSerializer(ModelSerializer):
         model = EmployeeBankInformation
         fields = ('staffID', 'bank', 'bankBranch', 'bankAccountNumber', 'city', 'country')
 
-
-
 class RegistrationSerializer(HyperlinkedModelSerializer):
     """ Serializer registration requests and creates new user"""
     password = serializers.CharField(
