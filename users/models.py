@@ -104,11 +104,11 @@ class EmployeeIDInformation(models.Model):
 
 class EmployeeNextOfKin(models.Model):
   staffID = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, primary_key=True, related_name="emp_kin")
-  email = models.EmailField(unique=False)
-  relationship = models.CharField(max_length=150)
   first_name = models.CharField(max_length=150)
   middle_name = models.CharField(max_length=150, default='Middle')
   last_name = models.CharField(max_length=150)
+  email = models.EmailField(unique=False)
+  relationship = models.CharField(max_length=150)
   phone_number = models.CharField(max_length=13)
   date_of_birth = models.DateField(blank=True, null=True)
   gender = models.CharField(choices=GENDER, default='',max_length=6)

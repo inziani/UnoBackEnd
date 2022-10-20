@@ -19,8 +19,7 @@ from .serializers import UserSerializer, UserProfileSerializer, RegistrationSeri
 class CustomTokenObtainPairView(TokenObtainPairView):
     # Replace the serializer with your custom
     serializer_class = CustomTokenObtainPairSerializer
-    # queryset = User.objects.all()
-    # permission_classes = [IsAuthenticated]
+    
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     """This Viewset automatically provides list and retrieve actions - ReadOnlyModelViewSet"""
