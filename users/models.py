@@ -129,22 +129,24 @@ class EmployeeNextOfKin(models.Model):
 
 class EmployeeMaritalInformation(models.Model):
   staffID = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, primary_key=True, related_name="emp_marital")
-  email = models.EmailField(unique=False)
   first_name = models.CharField(max_length=150)
   middle_name = models.CharField(max_length=150, default='Middle')
   last_name = models.CharField(max_length=150)
+  email = models.EmailField(unique=False)
   phone_number = models.CharField(max_length=13)
   date_of_birth = models.DateField(blank=True, null=True)
   relationship = models.CharField(max_length=150)
   marriageDate = models.DateField(blank=True, null=True)
   marriageCertificateNumber = models.CharField(max_length=150)
   gender = models.CharField(choices=GENDER, default='',max_length=6)
-  city = models.CharField(verbose_name= _("City"), blank=True, null=True, max_length=255)
-  country = models.CharField(verbose_name= _("Country"), blank=True, null=True, max_length=255)
-  residentialAddress = models.CharField(max_length=150)
   identificationDocument = models.CharField(max_length=150)
   identificationNumber = models.CharField(max_length=150)
   taxNumber = models.CharField(max_length=150)
+  residentialAddress = models.CharField(max_length=150)
+  city = models.CharField(verbose_name= _("City"), blank=True, null=True, max_length=255)
+  country = models.CharField(verbose_name= _("Country"), blank=True, null=True, max_length=255)
+  
+  
   
 
   def __str__(self):
