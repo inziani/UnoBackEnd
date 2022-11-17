@@ -21,7 +21,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
     
 
-class UserViewSet(viewsets.ReadOnlyModelViewSet):
+class UserViewSet(viewsets.ModelViewSet):
     """This Viewset automatically provides list and retrieve actions - ReadOnlyModelViewSet"""
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -35,6 +35,7 @@ class UserProfileViewSet(viewsets.ReadOnlyModelViewSet):
 
 class EmployeeIDInformationViewSet(viewsets.ReadOnlyModelViewSet):
     """This Viewset automatically provides list and retrieve actions - ReadOnlyModelViewSet"""
+    # Allows admin to maintaint staff Users. Full authorisation has been given to this viewset
     queryset = EmployeeIDInformation.objects.all()
     serializer_class = EmployeeIDInformationSerializer
     permission_classes = [IsAuthenticated]

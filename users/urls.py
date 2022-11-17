@@ -8,7 +8,7 @@ from users.views import UserViewSet, RegistrationViewSet, UserProfileViewSet, Em
 
 router = SimpleRouter()
 
-router.register(r'users', views.UserViewSet)
+
 router.register(r'user-profile', views.UserProfileViewSet)
 router.register(r'empIDInfo', views.EmployeeIDInformationViewSet)
 router.register(r'empKinInfo', views.EmployeeNextOfKinViewSet)
@@ -16,6 +16,7 @@ router.register(r'empMaritalInfo', views.EmployeeMaritalInformationViewSet)
 router.register(r'empDepInfo', views.EmployeeDependantsViewSet)
 router.register(r'empBankInfo', views.EmployeeBankInformationViewSet)
 router.register(r'register', views.RegistrationViewSet)
+router.register(r'users', views.UserViewSet)
 
 
 urlpatterns = [

@@ -28,11 +28,21 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 
 class UserSerializer(HyperlinkedModelSerializer):
+    password = serializers.CharField(
+        max_length = 128,
+        min_length = 12,
+        write_only = True
+    )
+    partial=True
 
     class Meta:
         model = User
-        fields = ('url', 'id', 'username', 'email', 'first_name', 'middle_name', 'last_name', 'phone_number', 'date_of_birth', 'gender', 'city', 'country', 'is_active','is_superuser', 'is_staff', 'date_joined')
-        # fields = '__all__'
+        fields = ('url', 'id', 'username', 'email', 'first_name', 'middle_name', 'last_name', 'phone_number', 'date_of_birth', 'gender', 'city', 'country', 'password', 'is_active','is_superuser', 'is_staff', 'date_joined')
+        
+
+    def create(self, validated_data):
+        # Use the create_user method to create new user
+        return User.objects.create_user(**validated_data)
 
 class UserProfileSerializer(HyperlinkedModelSerializer):
     user = serializers.HyperlinkedRelatedField(view_name = 'userprofile-detail', queryset=User.objects.all())
@@ -83,7 +93,6 @@ class RegistrationSerializer(HyperlinkedModelSerializer):
         min_length = 12,
         write_only = True
     )
-
     # The client should not be able to send a token along with a registration request. Make the request readonly to handle it.
     token = serializers.CharField(max_length=255, read_only = True)
 
