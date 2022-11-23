@@ -33,7 +33,7 @@ class UserSerializer(HyperlinkedModelSerializer):
         min_length = 12,
         write_only = True
     )
-    partial=True
+    
 
     class Meta:
         model = User
