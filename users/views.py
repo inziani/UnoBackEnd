@@ -33,7 +33,7 @@ class UserProfileViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = UserProfileSerializer
     permission_classes = [IsAuthenticated]
 
-class EmployeeIDInformationViewSet(viewsets.ReadOnlyModelViewSet):
+class EmployeeIDInformationViewSet(viewsets.ModelViewSet):
     """This Viewset automatically provides list and retrieve actions - ReadOnlyModelViewSet"""
     # Allows admin to maintaint staff Users. Full authorisation has been given to this viewset
     queryset = EmployeeIDInformation.objects.all()
