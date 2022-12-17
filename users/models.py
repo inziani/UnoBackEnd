@@ -23,7 +23,6 @@ class User(AbstractBaseUser, PermissionsMixin):
   date_of_birth = models.DateField(blank=True, null=True)
   gender = models.CharField(choices=GENDER, default='',max_length=6)
   city = models.CharField(verbose_name= _("City"), blank=True, null=True, max_length=255)
-  # country = CountryField(multiple=True,  blank_label='(select country)', default='')
   country = models.CharField(verbose_name= _("Country"), blank=True, null=True, max_length=255)
   is_active = models.BooleanField(default=True)
   # The is_active flag offers users a chance to deactivate their account as opposed to deletion which completely removes a users account from the application.
