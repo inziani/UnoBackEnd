@@ -44,12 +44,23 @@ class UserSerializer(HyperlinkedModelSerializer):
         # Use the create_user method to create new user
         return User.objects.create_user(**validated_data)
 
-class UserProfileSerializer(HyperlinkedModelSerializer):
-    user = serializers.HyperlinkedRelatedField(view_name = 'userprofile-detail', queryset=User.objects.all())
+class UserProfileSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = UserProfile
-        fields = ('url', 'user', 'bio', 'hobbies', 'profile_pic', 'create_at', 'updated_at')
+        fields = (
+            'url', 
+            'user', 
+            'education_bio', 
+            'professional_bio', 
+            'professional_hobbies', 
+            'personal_hobbies', 
+            'social_hobbies', 
+            'profile_pic', 
+            'create_at', 
+            'updated_at'
+            )
 
 class EmployeeIDInformationSerializer(ModelSerializer):
     staffID = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())

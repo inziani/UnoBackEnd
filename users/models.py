@@ -72,8 +72,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class UserProfile(models.Model):
   user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, primary_key=True, related_name="user_profile")
-  bio = models.CharField(max_length=255, blank=True, null=True)
-  hobbies = models.CharField(max_length=150, blank=True, null=True)
+  education_bio = models.CharField(max_length=255, blank=True, null=True)
+  professional_bio = models.CharField(max_length=255, blank=True, null=True)
+  professional_hobbies = models.CharField(max_length=255, blank=True, null=True)
+  personal_hobbies = models.CharField(max_length=255, blank=True, null=True)
+  social_hobbies = models.CharField(max_length=255, blank=True, null=True)
   profile_pic = models.ImageField(null=True)
   is_verified = models.BooleanField(default=False)
   create_at = models.DateTimeField(default=timezone.now)
