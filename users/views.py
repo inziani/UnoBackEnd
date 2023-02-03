@@ -27,7 +27,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
 
-class UserProfileViewSet(viewsets.ReadOnlyModelViewSet):
+class UserProfileViewSet(viewsets.ModelViewSet):
     """This Viewset automatically provides list and retrieve actions - ReadOnlyModelViewSet"""
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
