@@ -42,6 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    #Other installed apps
+
+    #'phonenumber_field',
+
     #User installed apps
 
     'users.apps.UsersConfig',

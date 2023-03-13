@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models.deletion import CASCADE, PROTECT
 from django.conf import settings
 from django.contrib.auth import get_user_model
+# from phonenumber_field.modelfields import PhoneNumberField
 from decimal import Decimal
 
 from company.constants import CURRENCY

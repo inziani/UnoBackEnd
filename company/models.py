@@ -1,9 +1,11 @@
+
+# from phonenumber_field.modelfields import PhoneNumberField
 from django.db import models
 from django.db.models.deletion import CASCADE, PROTECT
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils.timezone import now
-# from django_countries.fields import CountryField
+
 
 
 from .constants import LANGUAGE, CURRENCY
@@ -21,8 +23,8 @@ class Company(models.Model):
     country = models.CharField(max_length=50, null=True, blank=True)
     language = models.CharField(choices=LANGUAGE, default='en', max_length=35)
     currency = models.CharField(choices=CURRENCY, default='KSH', max_length=3)
-    landLine = models.IntegerField(null=True, blank=True)
-    mobileNumber = models.CharField(max_length=15)
+    landLine = models.CharField(null=True, blank=True, max_length=12)
+    mobileNumber = models.CharField(null=True, blank=True, max_length=12)
     email = models.EmailField(max_length=254)
     dateCreated = models.DateTimeField(auto_now_add=True)
     dateChanged = models.DateTimeField(auto_now_add=True)

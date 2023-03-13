@@ -12,6 +12,7 @@ django-rest-auth = "*"
 djangorestframework-simplejwt = "*"
 django-countries = "*"
 django-cors-headers = "*"
+django-phonenumber-field = {extras = ["phonenumbers"], version = "*"}
 
 [dev-packages]
 

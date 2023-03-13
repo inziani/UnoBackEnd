@@ -4,7 +4,8 @@ ASSETS = 'Assets'
 PAYABLES = 'Accounts Payables'
 RECEIVABLES = 'Accounts Receivables'
 MATERIALS = 'Materials'
-NONE = 'None'
+NA = 'Not Required'
+GL = 'General Ledger'
 
 
 RECONACCOUNT = [
@@ -13,7 +14,8 @@ RECONACCOUNT = [
   (PAYABLES, 'Accounts Payable'),
   (RECEIVABLES, 'Accounts Receivable'),
   (MATERIALS, 'Materials'),
-  (NONE, 'None')
+  (NA, 'Not Required')
+  
 ]
 
 ACCOUNTTYPE = [
@@ -21,4 +23,5 @@ ACCOUNTTYPE = [
   (PAYABLES, 'Accounts Payable'),
   (RECEIVABLES, 'Accounts Receivable'),
   (MATERIALS, 'Materials'),
+  (GL, 'General Ledger')
 ]
