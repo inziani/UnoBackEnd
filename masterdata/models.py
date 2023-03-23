@@ -59,7 +59,9 @@ class GeneralLedgerAccountMaster(models.Model):
     accountNumber = models.IntegerField(null=False, blank=False, unique=True)
     companyCode = models.ForeignKey(CompanyCode, max_length=4, null=False, blank=False, related_name='GeneralLedgerAccountMaster', on_delete=PROTECT)
     chartOfAccounts = models.ForeignKey(ChartOfAccounts, null=False, blank=False, related_name='GeneralLedgerAccountMaster', on_delete=PROTECT)
-    accountGroup = models.ForeignKey(GeneralLedgerAccountGroup, max_length=4, null= False, blank=True, related_name='GeneralLedgerAccountMaster', on_delete=PROTECT)
+
+    accountGroup = models.CharField(null=False, blank=False, max_length=4)
+
     accountType = models.CharField(choices=ACCOUNTTYPE, null=False, blank=False, max_length=30)
     reconciliationAccountInput = models.BooleanField()
     reconciliationAccountType = models.CharField(choices=RECONACCOUNT, null=False, blank=False, max_length=30)
