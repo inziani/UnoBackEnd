@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 
 from company.models import CompanyCode
-from masterdata.models import GeneralLedgerAccountMaster, TaxCode
+from masterdata.models import GeneralLedgerAccountMaster
 from company.constants import CURRENCY
 from .constants import POSTINGKEY
 
@@ -23,7 +23,7 @@ class GLDocument(models.Model):
     cr = models.CharField(choices=POSTINGKEY, max_length=6)
     currency = models.CharField(choices=CURRENCY, max_length=35)
     amountInDocumentCurrency = models.DecimalField(decimal_places=2, max_digits=17)
-    taxCode = models.ForeignKey(TaxCode, max_length=2, null=False, blank=False, related_name='taxCode_GLDocument', on_delete=PROTECT)
+    taxCode = models.CharField(max_length=2, null=False, blank=False)
     taxAmountInDocumentCurrency = models.DecimalField(decimal_places=2, max_digits=17)
     dateCreated = models.DateTimeField(auto_now_add=True)
     dateChanged = models.DateTimeField(auto_now=True)

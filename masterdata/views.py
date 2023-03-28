@@ -4,30 +4,30 @@ from rest_framework import viewsets
 
 # Create your views here.
 
-from .models import TaxCode, GeneralLedgerAccountGroup, GeneralLedgerAccountMaster 
-from .serializers import TaxCodeSerializer, GeneralLedgerAccountGroupSerializer, GeneralLedgerAccountMasterSerializer
+from .models import GeneralLedgerAccountMaster 
+from .serializers import GeneralLedgerAccountMasterSerializer
 # from activitys.permissions import IsOwnerOrReadOnly
 
-class TaxCodeViewSet(viewsets.ModelViewSet):
-    """ This view set automatically provides for list, create, retrieve update and destory actions"""
-    queryset = TaxCode.objects.all()
-    serializer_class = TaxCodeSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+# class TaxCodeViewSet(viewsets.ModelViewSet):
+#     """ This view set automatically provides for list, create, retrieve update and destory actions"""
+#     queryset = TaxCode.objects.all()
+#     serializer_class = TaxCodeSerializer
+#     permission_classes = [IsAuthenticatedOrReadOnly]
 
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+#     def perform_create(self, serializer):
+#         serializer.save(owner=self.request.user)
 
-class GLAccountGroupViewSet(viewsets.ModelViewSet):
-    """
-    This view set automaticall provides for list, create, retrieve, update and destroy actions
-    """
-    queryset = GeneralLedgerAccountGroup.objects.all()
-    serializer_class = GeneralLedgerAccountGroupSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+# class GLAccountGroupViewSet(viewsets.ModelViewSet):
+#     """
+#     This view set automaticall provides for list, create, retrieve, update and destroy actions
+#     """
+#     queryset = GeneralLedgerAccountGroup.objects.all()
+#     serializer_class = GeneralLedgerAccountGroupSerializer
+#     permission_classes = [IsAuthenticatedOrReadOnly]
 
     
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+#     def perform_create(self, serializer):
+#         serializer.save(owner=self.request.user)
 
 class GeneralLedgerAccountMasterViewSet(viewsets.ModelViewSet):
     """

@@ -1,5 +1,3 @@
-
-# from phonenumber_field.modelfields import PhoneNumberField
 from django.db import models
 from django.db.models.deletion import CASCADE, PROTECT
 from django.conf import settings
