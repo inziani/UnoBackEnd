@@ -1,29 +1,26 @@
 
 from rest_framework.serializers import ModelSerializer, HyperlinkedModelSerializer
-from .models import GeneralLedgerAccountMaster
+from .models import GeneralLedgerAccountMaster, TaxCode, GeneralLedgerAccountGroup
 from users.serializers import serializers
 
 
 
-# class TaxCodeSerializer(HyperlinkedModelSerializer):
-#     # owner = serializers.ReadOnlyField(source='owner.username')
-
-#     class Meta:
-#         model = TaxCode
-#         fields = (
-#             'url', 'id', 'companyCode', 'taxCode', 'taxCodeDescription', 'taxCodePercentage', 'dateCreated', 'dateChanged'
-#                 )
-
-
-# class GeneralLedgerAccountGroupSerializer(ModelSerializer):
-#     # owner = serializers.ReadOnlyField(source='owner.username')
+class TaxCodeSerializer(HyperlinkedModelSerializer):
+   
+    class Meta:
+        model = TaxCode
+        fields = (
+            'url', 'id', 'taxCode', 'taxCodeDescription', 'taxCodePercentage', 'dateCreated', 'dateChanged'
+                )
 
 
-#     class Meta:
-#         model = GeneralLedgerAccountGroup
-#         fields =  (
-#             'url', 'id', 'companyCode', 'chartOfAccounts', 'accountGroup', 'description', 
-#             'dateCreated', 'dateChanged' )
+class GeneralLedgerAccountGroupSerializer(ModelSerializer):
+
+    class Meta:
+        model = GeneralLedgerAccountGroup
+        fields =  (
+            'url', 'id', 'accountGroup', 'description', 
+            'dateCreated', 'dateChanged' )
 
 class GeneralLedgerAccountMasterSerializer(serializers.HyperlinkedModelSerializer):
     # owner = serializers.ReadOnlyField(source='owner.username')

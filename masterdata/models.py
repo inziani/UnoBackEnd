@@ -11,49 +11,45 @@ from .constants import RECONACCOUNT, ACCOUNTTYPE
 
 # Create your models here.
 
-# class TaxCode(models.Model):
-#     companyCode = models.ForeignKey(CompanyCode, related_name='companyCode_TaxCode', on_delete=PROTECT)
-#     taxCode = models.CharField(max_length=2, null=False, blank=False, unique=True)
-#     taxCodeDescription = models.CharField(max_length=50, null=False, blank=False)
-#     taxCodePercentage = models.DecimalField(max_digits=5, decimal_places=2, default=Decimal('0.00'), blank=False, null=False, unique=True)
-#     dateCreated = models.DateTimeField(auto_now_add=True)
-#     dateChanged = models.DateTimeField(auto_now=True)
+class TaxCode(models.Model):
+    taxCode = models.CharField(max_length=2, null=False, blank=False, unique=True)
+    taxCodeDescription = models.CharField(max_length=50, null=False, blank=False)
+    taxCodePercentage = models.DecimalField(max_digits=5, decimal_places=2, default=Decimal('0.00'), blank=False, null=False, unique=True)
+    dateCreated = models.DateTimeField(auto_now_add=True)
+    dateChanged = models.DateTimeField(auto_now=True)
 
-#     class Meta:
-#         ordering = ('taxCode',)
+    class Meta:
+        ordering = ('taxCode',)
 
-#     def __str__(self):
-#         return f'{self.companyCode}, {self.taxCode}, {self.taxCodeDescription}, {self.taxCodePercentage}'
+    def __str__(self):
+        return f'{self.taxCode}, {self.taxCodeDescription}, {self.taxCodePercentage}'
 
-#     def create(self, ):
-#         return self.save()
+    def create(self, ):
+        return self.save()
     
-#     def change(self, taxCodeDescription, taxCodePercentage):
-#         self.taxCodeDescription = taxCodeDescription
-#         self.taxCodePercentage = taxCodePercentage
-#         return self.save()
+    def change(self, taxCodeDescription, taxCodePercentage):
+        self.taxCodeDescription = taxCodeDescription
+        self.taxCodePercentage = taxCodePercentage
+        return self.save()
 
-# class GeneralLedgerAccountGroup(models.Model):
-#     companyCode = models.ForeignKey(CompanyCode, related_name='GeneralLedgerAccountGroup', on_delete=PROTECT)
-#     chartOfAccounts = models.ForeignKey(ChartOfAccounts, related_name='GeneralLedgerAccountGroup', on_delete=PROTECT)
-#     accountGroup = models.CharField(max_length=4, null=False, blank=False, unique=True)
-#     description = models.CharField(max_length=50, null=False, blank=False)
-#     dateCreated = models.DateTimeField(auto_now_add=True)
-#     dateChanged = models.DateTimeField(auto_now=True)
+class GeneralLedgerAccountGroup(models.Model):
+    accountGroup = models.CharField(max_length=4, null=False, blank=False, unique=True)
+    description = models.CharField(max_length=50, null=False, blank=False)
+    dateCreated = models.DateTimeField(auto_now_add=True)
+    dateChanged = models.DateTimeField(auto_now=True)
 
-#     class Meta:
-#         ordering = ('chartOfAccounts',)
+    class Meta:
+        ordering = ('accountGroup',)
 
-#     def __str__(self):
-#         return f'{self.companyCode}, {self.chartOfAccounts}, {self.description}'
+    def __str__(self):
+        return f'{self.accountGroup}, {self.description}'
 
-#     def create(self, ):
-#         return self.save()
+    def create(self, ):
+        return self.save()
     
-#     def change(self, chartOfAccounts, description):
-#         self.chartOfAccounts = chartOfAccounts
-#         self.description = description
-#         return self.save()
+    def change(self, description):
+        self.description = description
+        return self.save()
 
 class GeneralLedgerAccountMaster(models.Model):
     accountNumber = models.IntegerField(null=False, blank=False, unique=True)
