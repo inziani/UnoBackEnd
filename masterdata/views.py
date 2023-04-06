@@ -14,8 +14,8 @@ class TaxCodeViewSet(viewsets.ModelViewSet):
     serializer_class = TaxCodeSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+    # def perform_create(self, serializer):
+    #     serializer.save(owner=self.request.user)
 
 class GLAccountGroupViewSet(viewsets.ModelViewSet):
     """
