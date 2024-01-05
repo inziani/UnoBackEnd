@@ -29,7 +29,14 @@ SECRET_KEY = 'r5j#-g!oxa_*=n7(c#$^+@!4()fiubena1ly@*+=g*h)p&e650'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0', 'http://quotes.stormconsultancy.co.uk/random.json']
+ALLOWED_HOSTS = [
+    '127.0.0.1', 
+    'localhost', 
+    '0.0.0.0', 
+
+    "http://localhost:4200",
+    "http://localhost:8080",
+    ]
 
 
 # Application definition
@@ -117,9 +124,9 @@ AUTH_USER_MODEL = 'users.User'
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     "corsheaders.middleware.CorsPostCsrfMiddleware",
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -208,16 +215,18 @@ MEDIA_ROOT=os.path.join(BASE_DIR, "media")
 CORS_ALLOWED_ORIGINS  = [
     "http://localhost:4200",
     "http://localhost:8080",
-    "http://quotes.stormconsultancy.co.uk",
 ]
-
-CORS_ALLOW_METHODS = list(default_methods)
-CORS_ALLOW_HEADERS = list(default_headers)
-
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:4200",
+    "http://localhost:8080",
 ]
+CORS_ALLOW_METHODS = list(default_methods)
+CORS_ALLOW_HEADERS = list(default_headers)
+CORS_EXPOSE_HEADERS = [
+    "http://localhost:4200",
+    "http://localhost:8080",
+]
+CORS_ALLOW_CREDENTIALS = True
 
+CSRF_COOKIE_SECURE = True
 
-# CORS_ALLOWED_ORIGIN_REGESXES = []
-# CORS_ALLOW_ALL_ORIGINS[]
