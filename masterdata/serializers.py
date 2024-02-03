@@ -2,6 +2,7 @@
 from rest_framework.serializers import ModelSerializer, HyperlinkedModelSerializer
 from .models import GeneralLedgerAccountMaster, TaxCode, GeneralLedgerAccountGroup
 from users.serializers import serializers
+from datetime import datetime
 
 
 
@@ -23,12 +24,12 @@ class GeneralLedgerAccountGroupSerializer(ModelSerializer):
             'dateCreated', 'dateChanged' )
 
 class GeneralLedgerAccountMasterSerializer(serializers.HyperlinkedModelSerializer):
-    # owner = serializers.ReadOnlyField(source='owner.username')
-    lastDateOfInterestCalculation = serializers.DateTimeField(required=False, allow_null=True, format="%Y-%m-%d", input_formats=["%Y-%m-%dT%H:%M:%S", "%Y-%m-%d"])
-    keyDateofLastInterest = serializers.DateTimeField(required=False, allow_null=True, format="%Y-%m-%d", input_formats=["%Y-%m-%dT%H:%M:%S", "%Y-%m-%d"])
+    owner = serializers.ReadOnlyField(source='owner.username')
+    # lastDateOfInterestCalculation = serializers.DateTimeField(required=False, allow_null=True, format="%Y-%m-%d", input_formats=["%Y-%m-%dT%H:%M:%S", "%Y-%m-%d"])
+    # keyDateofLastInterest = serializers.DateTimeField(required=False, allow_null=True, format="%Y-%m-%d", input_formats=["%Y-%m-%dT%H:%M:%S", "%Y-%m-%d"])
 
-    def validate(self, value):
-        return value.strftime('%Y-%m-%d') if value else value
+    # def validate(self, value):
+    #     return value.strftime('%Y-%m-%d') if value else value
 
     class Meta:
         model = GeneralLedgerAccountMaster
