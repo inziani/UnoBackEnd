@@ -6,6 +6,8 @@ RECEIVABLES = 'Accounts Receivables'
 MATERIALS = 'Materials'
 NA = 'Not Required'
 GL = 'General Ledger'
+PL = 'Profit and Loss Account'
+BS = 'Balance Sheet Account'
 
 
 RECONACCOUNT = [
@@ -14,7 +16,7 @@ RECONACCOUNT = [
   (PAYABLES, 'Accounts Payable'),
   (RECEIVABLES, 'Accounts Receivable'),
   (MATERIALS, 'Materials'),
-  (NA, 'Not Required')
+  (GL, 'General Ledger')
   
 ]
 
@@ -25,3 +27,10 @@ ACCOUNTTYPE = [
   (MATERIALS, 'Materials'),
   (GL, 'General Ledger')
 ]
+
+FINANCIALSTATEMENT = [
+  (PL, 'Profit and Loss Account'),
+  (BS, 'Balance Sheet Account')
+]
+
+
