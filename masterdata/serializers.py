@@ -1,7 +1,9 @@
 
 from rest_framework.serializers import ModelSerializer, HyperlinkedModelSerializer
 from .models import GeneralLedgerAccountMaster, TaxCode, GeneralLedgerAccountGroup
+from company.models import Company, CompanyCode, ChartOfAccounts, ReportingArea, ControllingArea, BusinessArea
 from users.serializers import serializers
+from company.serializers import CompanySerializer, CompanyCodeSerializer, ChartOfAccountsSerializer, ControllingAreaSerializer, ReportingAreaSerializer, BusinessAreaSerializer
 from datetime import datetime
 
 
@@ -25,6 +27,10 @@ class GeneralLedgerAccountGroupSerializer(ModelSerializer):
 
 class GeneralLedgerAccountMasterSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
+    companyCode = CompanyCodeSerializer()
+    chartOfAccounts = ChartOfAccountsSerializer()
+    controllingArea = ControllingAreaSerializer()
+    businessArea = BusinessAreaSerializer()
 
 
     class Meta:
