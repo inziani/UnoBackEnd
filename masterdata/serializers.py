@@ -27,12 +27,13 @@ class GeneralLedgerAccountGroupSerializer(ModelSerializer):
 
 class GeneralLedgerAccountMasterSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    companyCode = CompanyCodeSerializer()
-    chartOfAccounts = ChartOfAccountsSerializer()
-    controllingArea = ControllingAreaSerializer()
-    businessArea = BusinessAreaSerializer()
+    # companyCode = CompanyCodeSerializer()
+    # chartOfAccounts = ChartOfAccountsSerializer()
+    # controllingArea = ControllingAreaSerializer()
+    # businessArea = BusinessAreaSerializer()
 
 
     class Meta:
         model = GeneralLedgerAccountMaster
         fields = '__all__'
+        # fields = ('url', 'accountNumber', 'accountType', 'owner', 'companyCode', 'chartOfAccounts', 'controllingArea', 'businessArea')
